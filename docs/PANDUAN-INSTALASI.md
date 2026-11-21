@@ -26,8 +26,8 @@ grep -E -m1 '(vmx|svm)' /proc/cpuinfo
 ```bash
 sudo apt-get update
 sudo apt-get install -y git
-git clone https://github.com/OWNER/droid-cloud.git
-cd droid-cloud
+git clone https://github.com/Evosif/NimbusDroid.git
+cd NimbusDroid
 ```
 
 ## Pasang

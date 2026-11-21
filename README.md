@@ -44,8 +44,8 @@ On a fresh Ubuntu host:
 ```bash
 sudo apt-get update
 sudo apt-get install -y git
-git clone https://github.com/OWNER/droid-cloud.git
-cd droid-cloud
+git clone https://github.com/Evosif/NimbusDroid.git
+cd NimbusDroid
 ```
 
 Point a DNS record such as `android.example.com` to the server, then run:
