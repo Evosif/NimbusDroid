@@ -12,6 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class SettingsTests(unittest.TestCase):
+    def test_project_has_mit_license(self) -> None:
+        license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
+        self.assertTrue(license_text.startswith("MIT License\n"))
+        self.assertIn("Permission is hereby granted", license_text)
+
     def test_environment_overrides_runtime_paths(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

@@ -233,3 +233,11 @@ This repository packages the working single-host controller. It is not a
 multi-tenant product. The web bridge, controller, and Caddy route are ready
 for deployment, but a new operator should verify DNS, KVM, certificates, and
 SSH access on the target server before importing sensitive data.
+
+## License
+
+NimbusDroid is released under the [MIT License](LICENSE).
+
+Third-party components retain their upstream licenses. In particular, the
+vendored noVNC files and their notices are documented in
+[LICENSES/novnc-copyright.txt](LICENSES/novnc-copyright.txt).
