@@ -6,13 +6,18 @@ cd "$REPO_DIR"
 
 python3 -m compileall -q controller tests
 python3 -m unittest discover -s tests -v
-node --check web/app.js
+if command -v node >/dev/null 2>&1; then
+  node --check web/app.js
+else
+  printf '[skip] Node.js tidak tersedia untuk syntax check frontend.\n'
+fi
 bash -n scripts/install.sh
 bash -n scripts/verify.sh
 bash -n scripts/show-password.sh
 bash -n scripts/reset-password.sh
 
-if rg -n '/home/ubuntu|54\.238\.137\.23|nip\.io' controller web --glob '!*.woff2'; then
+if grep -RInE '/home/ubuntu|54\.238\.137\.23|nip\.io' controller web \
+  --exclude='*.woff2'; then
   printf 'Ditemukan path atau host spesifik instalasi lama.\n' >&2
   exit 1
 fi
