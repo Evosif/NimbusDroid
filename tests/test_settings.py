@@ -54,6 +54,22 @@ class SettingsTests(unittest.TestCase):
                 ],
             )
 
+    def test_non_loopback_api_host_is_rejected(self) -> None:
+        environment = {
+            **os.environ,
+            "DROID_CLOUD_API_HOST": "0.0.0.0",
+        }
+        result = subprocess.run(
+            [sys.executable, "-c", "import settings"],
+            cwd=ROOT / "controller",
+            env=environment,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("loopback", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

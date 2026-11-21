@@ -39,8 +39,22 @@ if [[ ! "$PUBLIC_HOST" =~ ^[A-Za-z0-9.-]+$ ]]; then
   printf 'DROID_CLOUD_PUBLIC_HOST tidak valid: %s\n' "$PUBLIC_HOST" >&2
   exit 1
 fi
-if [[ ! "$API_PORT" =~ ^[0-9]+$ ]] || (( API_PORT < 1 || API_PORT > 65535 )); then
+if [[ ! "$API_PORT" =~ ^[0-9]+$ ]]; then
   printf 'DROID_CLOUD_API_PORT tidak valid: %s\n' "$API_PORT" >&2
+  exit 1
+fi
+API_PORT=$((10#$API_PORT))
+if (( API_PORT < 1 || API_PORT > 65535 )); then
+  printf 'DROID_CLOUD_API_PORT tidak valid: %s\n' "$API_PORT" >&2
+  exit 1
+fi
+if [[ ! "$WEB_BIND" =~ ^127\.0\.0\.1:([0-9]+)$ ]]; then
+  printf 'DROID_CLOUD_WEB_BIND harus berupa loopback IPv4, misalnya 127.0.0.1:8080.\n' >&2
+  exit 1
+fi
+WEB_PORT=$((10#${BASH_REMATCH[1]}))
+if (( WEB_PORT < 1 || WEB_PORT > 65535 )) || [[ "$WEB_PORT" == "$API_PORT" ]]; then
+  printf 'Port web harus valid dan berbeda dari DROID_CLOUD_API_PORT.\n' >&2
   exit 1
 fi
 if [[ "$(uname -m)" != "x86_64" ]]; then
@@ -170,13 +184,12 @@ python3 "$INSTALL_DIR/scripts/render-template.py" \
   "CONFIG_FILE=$CONFIG_FILE" \
   "WEBSOCKIFY=$(command -v websockify)"
 
-web_port="${WEB_BIND##*:}"
 python3 "$INSTALL_DIR/scripts/render-template.py" \
   "$INSTALL_DIR/deploy/Caddyfile.template" \
   "/etc/caddy/Caddyfile" \
   "PUBLIC_HOST=$PUBLIC_HOST" \
   "API_PORT=$API_PORT" \
-  "WEB_PORT=$web_port"
+  "WEB_PORT=$WEB_PORT"
 
 install -d -m 0755 /etc/systemd/system/caddy.service.d
 cat > /etc/systemd/system/caddy.service.d/droid-cloud.conf <<EOF

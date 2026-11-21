@@ -53,5 +53,7 @@ XVFB = _path("DROID_CLOUD_XVFB", Path("/usr/bin/Xvfb"))
 X11VNC = _path("DROID_CLOUD_X11VNC", Path("/usr/bin/x11vnc"))
 
 API_HOST = os.environ.get("DROID_CLOUD_API_HOST", "127.0.0.1").strip()
+if API_HOST not in {"127.0.0.1", "::1", "localhost"}:
+    raise RuntimeError("DROID_CLOUD_API_HOST harus berupa alamat loopback.")
 API_PORT = _port("DROID_CLOUD_API_PORT", 8081)
 SSH_USER = os.environ.get("DROID_CLOUD_SSH_USER", getpass.getuser()).strip()
