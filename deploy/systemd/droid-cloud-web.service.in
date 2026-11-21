@@ -1,0 +1,20 @@
+[Unit]
+Description=Droid Cloud web console and WebSocket bridge
+Requires=droid-cloud-controller.service
+After=droid-cloud-controller.service network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_USER@
+EnvironmentFile=@CONFIG_FILE@
+ExecStart=@WEBSOCKIFY@ --web=${DROID_CLOUD_WEB_ROOT} --file-only --token-plugin=TokenFile --token-source=${DROID_CLOUD_STATE_DIR}/tokens --auth-plugin=ExpectOrigin --auth-source=${DROID_CLOUD_ALLOWED_ORIGINS} ${DROID_CLOUD_WEB_BIND}
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+UMask=0077
+RestartKillSignal=SIGTERM
+SendSIGKILL=yes
+
+[Install]
+WantedBy=multi-user.target

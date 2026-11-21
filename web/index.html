@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#111318">
+  <title>Droid Cloud</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="symbol-library" aria-hidden="true">
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3-9 5 9 5 9-5-9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 9a7 7 0 0 1 11.5-2L20 10M4 14l2.5 3A7 7 0 0 0 18 15"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 6 9 6-9 6V6Z"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M18.4 9A7 7 0 1 0 19 15"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 5h4M10.5 18.5h3"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h4l1.5-2h5L16 7h4a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="4"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l4.5-1 10-10a3.5 3.5 0 0 0-5-5l-10 10L4 20Z"/></symbol>
+    <symbol id="i-eraser" viewBox="0 0 24 24"><path d="m4 15 9-11 7 6-8 10H7l-3-3v-2Z"/><path d="m10 11 7 6M9 20h11"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 6 6 6-6 6M13 18h7"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-7 9 7M5.5 10.5v9h13v-9M9.5 19.5v-6h5v6"/></symbol>
+    <symbol id="i-apps" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2.5h6"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Zm12-1a6 6 0 0 1 0 8m2-11a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 2v10M7 5.5a8 8 0 1 0 10 0"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m3 0-1 14H7L6 7m4 4v6m4-6v6"/></symbol>
+    <symbol id="i-clone" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.37a1.7 1.7 0 0 0-1 .63 1.7 1.7 0 0 0-.37 1.07V21h-4v-.09A1.7 1.7 0 0 0 8.61 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.23 15a1.7 1.7 0 0 0-.63-1A1.7 1.7 0 0 0 2.53 13.6H2.4v-4h.13A1.7 1.7 0 0 0 4.2 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 8.6 4.2 1.7 1.7 0 0 0 9.6 3.6V3.4h4v.2a1.7 1.7 0 0 0 1 1.57 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9v.1a1.7 1.7 0 0 0 .63 1 1.7 1.7 0 0 0 1.07.37H21v4h-.09A1.7 1.7 0 0 0 19.4 15Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+  </svg>
+
+  <section id="login" class="login-view" hidden>
+    <div class="login-card">
+      <img class="login-logo" src="/assets/logo-mark.svg" alt="Droid Cloud">
+      <p class="eyebrow">DROID CLOUD</p>
+      <h1>Masuk ke controller</h1>
+      <p class="login-copy">Gunakan kata sandi administrator untuk mengelola mesin Android.</p>
+      <form id="login-form">
+        <label class="field-label" for="login-password">Kata sandi</label>
+        <div class="password-field">
+          <svg><use href="#i-lock"/></svg>
+          <input id="login-password" type="password" autocomplete="current-password" required autofocus>
+        </div>
+        <p id="login-message" class="form-message" aria-live="polite"></p>
+        <button class="button primary wide" type="submit">Masuk</button>
+      </form>
+      <p class="login-help">Kata sandi dikelola oleh administrator workspace.</p>
+    </div>
+  </section>
+
+  <div id="app" class="app-shell" hidden>
+    <aside class="sidebar">
+      <button class="brand" data-action="dashboard" aria-label="Buka dashboard">
+        <img class="brand-logo" src="/assets/logo-mark.svg" alt="">
+        <span><strong>droid</strong><small>cloud</small></span>
+      </button>
+      <nav class="nav" aria-label="Navigasi utama">
+        <p class="nav-label">Manage</p>
+        <button class="nav-item active" data-action="dashboard">
+          <svg><use href="#i-grid"/></svg><span>Virtual machines</span>
+        </button>
+      </nav>
+      <section class="quick-machines">
+        <div class="quick-heading"><span>Mesin</span><span id="quick-count">0</span></div>
+        <div id="quick-list" class="quick-list"></div>
+      </section>
+      <div class="sidebar-foot">
+        <div class="host-line"><span class="status-dot online"></span><span>Controller online</span></div>
+        <button id="logout-button" class="text-button">Keluar</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div>
+          <p class="topbar-kicker">Droid Cloud</p>
+          <h2 id="page-title">Virtual machines</h2>
+        </div>
+        <div class="topbar-actions">
+          <button id="refresh-button" class="icon-button" type="button" title="Muat ulang"><svg><use href="#i-refresh"/></svg></button>
+          <button class="button primary" type="button" data-action="create"><svg><use href="#i-plus"/></svg><span>Buat VM</span></button>
+        </div>
+      </header>
+
+      <main class="content">
+        <section id="dashboard-view">
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">INFRASTRUCTURE</p>
+              <h1>Mesin Android</h1>
+              <p>Buat, jalankan, dan hubungkan perangkat virtual dari satu tempat.</p>
+            </div>
+            <span class="host-capacity" id="capacity-note">Host resources</span>
+          </div>
+
+          <div class="stats">
+            <article class="stat-card"><span>Status</span><strong id="stat-running">0 <small>aktif</small></strong><p id="stat-total">dari 0 mesin</p></article>
+            <article class="stat-card monitor-card"><span>CPU host</span><strong id="stat-host-cpu-percent">—</strong><div class="meter"><i id="cpu-meter"></i></div><p id="stat-host-cpu">—</p></article>
+            <article class="stat-card monitor-card"><span>RAM host</span><strong id="stat-host-ram-percent">—</strong><div class="meter"><i id="ram-meter"></i></div><p id="stat-host-ram">—</p></article>
+            <article class="stat-card"><span>Autostart</span><strong id="stat-autostart">0 <small>mesin</small></strong><p>Saat host menyala</p></article>
+          </div>
+
+          <section class="table-card">
+            <div class="section-head">
+              <div><h2>Daftar mesin</h2><p>Status diperbarui otomatis setiap 3 detik.</p></div>
+              <span id="last-updated" class="muted-label">Memuat...</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Mesin</th><th>Status</th><th>Profil</th><th>Alokasi</th><th>ADB</th><th aria-label="Aksi"></th></tr></thead>
+                <tbody id="machine-table"></tbody>
+              </table>
+            </div>
+            <div id="empty-state" class="empty-state" hidden>
+              <span class="empty-icon"><svg><use href="#i-phone"/></svg></span>
+              <h3>Belum ada mesin</h3>
+              <p>Buat VM Android pertama Anda.</p>
+              <button class="button primary" data-action="create">Buat VM</button>
+            </div>
+          </section>
+        </section>
+
+        <section id="detail-view" hidden>
+          <div class="detail-topline">
+            <button class="back-button" data-action="dashboard"><svg><use href="#i-back"/></svg><span>Semua mesin</span></button>
+          </div>
+          <div class="detail-heading">
+            <div class="detail-title">
+              <div>
+                <div class="title-row"><h1 id="detail-name">Mesin</h1><span id="detail-status-pill" class="status-pill">Stopped</span></div>
+                <p id="detail-subtitle">Android 15</p>
+              </div>
+            </div>
+            <div class="detail-actions">
+              <button id="power-button" class="button" type="button"><svg><use href="#i-play"/></svg><span>Mulai</span></button>
+              <button id="details-button" class="button" type="button"><svg><use href="#i-menu"/></svg><span>Kelola</span></button>
+            </div>
+          </div>
+          <div id="detail-error" class="inline-alert" hidden></div>
+
+          <div class="detail-grid">
+            <section class="console-card">
+              <div class="console-head">
+                <div class="console-state"><span id="console-dot" class="status-dot"></span><span id="console-label">Terputus</span></div>
+                <div class="console-actions">
+                  <button id="screenshot-button" class="icon-button compact" type="button" title="Unduh screenshot"><svg><use href="#i-camera"/></svg></button>
+                  <button id="fullscreen-button" class="icon-button compact" type="button" title="Layar penuh"><svg><use href="#i-expand"/></svg></button>
+                  <button id="inspector-button" class="icon-button compact inspector-trigger" type="button" title="Buka detail mesin"><svg><use href="#i-settings"/></svg></button>
+                </div>
+              </div>
+              <div class="console-stage" id="console-stage">
+                <div class="device-frame">
+                  <div id="screen" class="device-screen" tabindex="0" aria-label="Layar Android"></div>
+                  <div id="console-overlay" class="console-overlay">
+                    <span class="loader"></span>
+                    <strong id="console-overlay-title">Menghubungkan</strong>
+                    <span id="console-overlay-message">Menyiapkan tampilan perangkat...</span>
+                  </div>
+                </div>
+              </div>
+              <div class="console-controls">
+                <button class="control-button" data-shortcut="b" type="button" title="Kembali"><svg><use href="#i-back"/></svg><span>Kembali</span></button>
+                <button class="control-button active" data-shortcut="h" type="button" title="Beranda"><svg><use href="#i-home"/></svg><span>Beranda</span></button>
+                <button class="control-button" data-shortcut="s" type="button" title="Aplikasi terbaru"><svg><use href="#i-apps"/></svg><span>Terbaru</span></button>
+                <span class="control-spacer"></span>
+                <button class="control-icon" data-shortcut="up" type="button" title="Volume naik"><svg><use href="#i-volume"/></svg></button>
+                <button class="control-icon" data-shortcut="p" type="button" title="Power"><svg><use href="#i-power"/></svg></button>
+              </div>
+            </section>
+
+            <aside class="inspector">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Ringkasan</h2>
+                  <button id="close-inspector" class="icon-button compact inspector-close" type="button" title="Tutup panel"><svg><use href="#i-close"/></svg></button>
+                  <button id="configure-button" class="panel-action" type="button"><svg><use href="#i-edit"/></svg><span>Ubah</span></button>
+                </div>
+                <dl class="property-list">
+                  <div><dt>Sistem</dt><dd id="prop-system">Android 15</dd></div>
+                  <div><dt>Perangkat</dt><dd id="prop-device">Pixel 6</dd></div>
+                  <div><dt>Layar</dt><dd id="prop-screen">—</dd></div>
+                  <div><dt>vCPU</dt><dd id="prop-cpu">4</dd></div>
+                  <div><dt>RAM</dt><dd id="prop-ram">4 GB</dd></div>
+                  <div><dt>Penyimpanan</dt><dd id="prop-storage">16 GB</dd></div>
+                  <div><dt>Root</dt><dd id="prop-root">Tidak</dd></div>
+                  <div class="property-toggle"><dt>Autostart</dt><dd><label class="switch"><input id="autostart-toggle" type="checkbox"><span></span></label></dd></div>
+                </dl>
+                <div class="management-actions">
+                  <button id="restart-button" class="button" type="button"><svg><use href="#i-restart"/></svg><span>Restart</span></button>
+                  <button id="clone-button" class="button" type="button"><svg><use href="#i-clone"/></svg><span>Clone</span></button>
+                  <button id="delete-button" class="button danger-text" type="button"><svg><use href="#i-trash"/></svg><span>Hapus</span></button>
+                </div>
+              </section>
+              <details class="panel disclosure">
+                <summary><span><strong>ADB</strong><small id="adb-state">Offline</small></span><svg><use href="#i-chevron"/></svg></summary>
+                <div class="disclosure-body">
+                  <pre class="command"><code id="adb-command">—</code></pre>
+                  <button class="button subtle wide" id="copy-adb" type="button"><svg><use href="#i-copy"/></svg><span>Salin perintah</span></button>
+                </div>
+              </details>
+              <details class="panel disclosure">
+                <summary><span><strong>Lokasi GPS</strong><small id="location-state">Belum diatur</small></span><svg><use href="#i-chevron"/></svg></summary>
+                <div class="disclosure-body">
+                <div class="location-presets" id="location-presets">
+                  <button type="button" data-location="Jakarta|-6.2088|106.8456">Jakarta</button>
+                  <button type="button" data-location="Bandung|-6.9175|107.6191">Bandung</button>
+                  <button type="button" data-location="Surabaya|-7.2575|112.7521">Surabaya</button>
+                  <button type="button" data-location="Singapura|1.3521|103.8198">Singapura</button>
+                </div>
+                <form id="location-form" class="location-form">
+                  <label class="compact-field"><span>Latitude</span><input id="location-latitude" type="number" min="-90" max="90" step="0.000001" placeholder="-6.2088" required></label>
+                  <label class="compact-field"><span>Longitude</span><input id="location-longitude" type="number" min="-180" max="180" step="0.000001" placeholder="106.8456" required></label>
+                  <button class="button primary wide" type="submit">Terapkan lokasi</button>
+                  <p id="location-message" class="form-message" aria-live="polite"></p>
+                </form>
+                </div>
+              </details>
+              <details class="panel disclosure">
+                <summary><span><strong>Pasang APK</strong><small>Dari komputer</small></span><svg><use href="#i-chevron"/></svg></summary>
+                <div class="disclosure-body">
+                <form id="upload-form">
+                  <label class="upload-zone" for="apk-file">
+                    <svg><use href="#i-upload"/></svg>
+                    <span><strong id="file-label">Pilih file APK</strong><small>Maksimal 250 MB</small></span>
+                    <input id="apk-file" type="file" accept=".apk,application/vnd.android.package-archive">
+                  </label>
+                  <button id="install-button" class="button primary wide" type="submit" disabled>Pasang aplikasi</button>
+                  <p id="upload-message" class="form-message" aria-live="polite"></p>
+                </form>
+                </div>
+              </details>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="machine-dialog" class="modal">
+    <form id="machine-form" method="dialog">
+      <div class="modal-head">
+        <div><p class="eyebrow">NEW MACHINE</p><h2>Buat mesin Android</h2></div>
+        <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <p class="section-label">Identitas</p>
+        <label class="field"><span>Nama mesin</span><input id="machine-name" name="name" type="text" maxlength="48" placeholder="QA Pixel" required></label>
+        </div>
+        <div class="modal-section">
+          <p class="section-label">Hardware</p>
+        <div class="form-grid">
+          <label class="field"><span>Perangkat</span><select id="machine-device" name="device"></select></label>
+          <label class="field"><span>Sistem</span><select id="machine-system" name="system"></select></label>
+          <label class="field"><span>vCPU</span><input id="machine-cpu" name="cpu" type="number" min="1" step="1" inputmode="numeric" required></label>
+          <label class="field"><span>RAM (GB)</span><input id="machine-ram" name="ram" type="number" min="1" step="0.5" inputmode="decimal" required></label>
+          <label class="field"><span>Penyimpanan</span><select id="machine-storage" name="storage"></select></label>
+        </div>
+        </div>
+        <label class="check-row root-row">
+          <input id="machine-root" type="checkbox">
+          <span><strong>Root debugging</strong><small>Gunakan image Google APIs Android 16 yang mendukung ADB root. Play Store tidak tersedia pada mesin ini.</small></span>
+        </label>
+        <label class="check-row"><input id="machine-start" type="checkbox" checked><span><strong>Mulai setelah dibuat</strong><small>Boot pertama dapat memerlukan waktu.</small></span></label>
+        <label class="check-row"><input id="machine-autostart" type="checkbox"><span><strong>Autostart</strong><small>Jalankan saat controller dimulai.</small></span></label>
+        <p id="machine-form-message" class="form-message" aria-live="polite"></p>
+      </div>
+      <div class="modal-foot">
+        <button class="button" type="button" data-close-modal>Batal</button>
+        <button id="create-submit" class="button primary" type="submit">Buat mesin</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="clone-dialog" class="modal small">
+    <form id="clone-form" method="dialog">
+      <div class="modal-head">
+        <div><p class="eyebrow">CLONE</p><h2>Clone mesin</h2></div>
+        <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-note">Data dan aplikasi dari mesin sumber akan disalin. Mesin sumber harus berstatus stopped.</p>
+        <label class="field"><span>Nama clone</span><input id="clone-name" type="text" maxlength="48" required></label>
+        <label class="check-row"><input id="clone-start" type="checkbox"><span><strong>Mulai setelah clone selesai</strong></span></label>
+        <p id="clone-message" class="form-message"></p>
+      </div>
+      <div class="modal-foot">
+        <button class="button" type="button" data-close-modal>Batal</button>
+        <button class="button primary" type="submit">Buat clone</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="configure-dialog" class="modal small">
+    <form id="configure-form" method="dialog">
+      <div class="modal-head">
+        <div><p class="eyebrow">HARDWARE</p><h2>Ubah profil mesin</h2></div>
+        <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-note">Matikan mesin sebelum mengubah hardware. Data Android tidak dihapus.</p>
+        <div class="form-grid single">
+          <label class="field"><span>Profil perangkat</span><select id="configure-device"></select></label>
+          <label class="field"><span>vCPU</span><input id="configure-cpu" type="number" min="1" step="1" inputmode="numeric" required></label>
+          <label class="field"><span>RAM (GB)</span><input id="configure-ram" type="number" min="1" step="0.5" inputmode="decimal" required></label>
+        </div>
+        <p id="configure-message" class="form-message" aria-live="polite"></p>
+      </div>
+      <div class="modal-foot split">
+        <button id="wipe-button" class="button danger-text" type="button"><svg><use href="#i-eraser"/></svg><span>Reset data</span></button>
+        <span class="modal-spacer"></span>
+        <button class="button" type="button" data-close-modal>Batal</button>
+        <button class="button primary" type="submit">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirm-dialog" class="modal small">
+    <div class="modal-head">
+      <div><p class="eyebrow">KONFIRMASI</p><h2 id="confirm-title">Hapus mesin?</h2></div>
+      <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
+    </div>
+    <div class="modal-body"><p id="confirm-copy" class="modal-note"></p></div>
+    <div class="modal-foot">
+      <button class="button" type="button" data-close-modal>Batal</button>
+      <button id="confirm-action" class="button danger-solid" type="button">Hapus</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+[Unit]
+Description=Droid Cloud Android VM controller
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_USER@
+SupplementaryGroups=kvm
+EnvironmentFile=@CONFIG_FILE@
+WorkingDirectory=@INSTALL_DIR@
+ExecStart=@PYTHON@ -u @INSTALL_DIR@/controller/server.py
+Restart=always
+RestartSec=4
+TimeoutStopSec=45
+KillMode=mixed
+NoNewPrivileges=true
+UMask=0077
+LimitNOFILE=65536
+RestartKillSignal=SIGTERM
+SendSIGKILL=yes
+
+[Install]
+WantedBy=multi-user.target
