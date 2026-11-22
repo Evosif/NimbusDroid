@@ -162,8 +162,9 @@ For ordinary Play Store use:
 
 For root testing:
 
-- Use an official Google APIs image.
-- Expect Play Store behavior to differ.
+- Use the official Play Store image with the Magisk-patched API 36 ramdisk.
+- Approve the ADB shell request once in the Magisk app before expecting
+  controller root checks to pass.
 - Keep test VMs separate from normal Play Store VMs.
 
 ## 9. SSH and ADB

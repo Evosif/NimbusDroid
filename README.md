@@ -13,15 +13,15 @@ physical phone.
 ## What It Provides
 
 - Create, start, stop, restart, clone, reset, and delete Android VMs.
-- Choose official Google Play images from Android 11 through Android 16.
-- Configure vCPU, RAM, storage, screen profile, root mode, and autostart.
-- Control Android from a responsive browser interface.
+- **Two VM backends:**
+  - **Official Android Emulator (AVD):** Google Play system images from Android 11 through Android 16 (with optional Magisk-patched Play Store ramdisk for root).
+  - **Community Android ISO (QEMU/KVM):** Boot BlissOS x86_64 ISOs directly with persistent ext4 userdata, initramfs boot hooks, KernelSU/ReZygisk bootstrap, virtual Wi-Fi (`VIRT_WIFI=1`), virtual GSM/LTE RIL (`libdroidcloud_ril.so`), virtual Bluetooth 5.2 VHCI (`droidcloud_bt`), and BlissOS `PixelPropsUtils` neutralization (`unppu.c`).
+- Configure vCPU, RAM, storage, screen profile, device identity profile, carrier, per-VM OpenVPN routing (`droid-cloud-netd`), and autostart.
+- Control Android from a responsive browser interface with multi-device Farm actions, macros, interactive Leaflet GPS map, and APK upload/install.
 - Send Android back, home, recents, power, and volume actions.
-- Set a test GPS location from the dashboard.
-- Upload and install APK files.
 - Expose ADB and emulator ports only through an SSH tunnel.
 - Monitor host CPU and RAM from the dashboard.
-- Run as three managed systemd services: controller, web bridge, and Caddy.
+- Run as managed systemd services: controller, web bridge, per-device network daemon, and Caddy.
 
 ## Supported Host
 
@@ -90,7 +90,8 @@ The Indonesian quick-start guide is
 2. Select **Buat VM**.
 3. Choose a device profile, Android version, vCPU, RAM, storage, and root
    preference.
-4. Leave **Google Play** enabled unless root is required.
+4. Leave **Google Play** enabled. Root VMs use the official Play Store image
+   with a Magisk-patched ramdisk.
 5. Wait for the VM phase to become **Running**.
 6. Use the on-screen controls or upload an APK.
 
@@ -194,8 +195,9 @@ directory and point all runtime paths to temporary storage. Do not run a
 second controller against the same state directory or allocate the same VM
 ports.
 
-See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for invariants, API endpoints,
-and a safe change checklist.
+See [AGENTS.md](AGENTS.md) (coding-agent handoff, Community ISO invariants, and
+native bionic build commands) and [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for
+invariants, API endpoints, and a safe change checklist.
 
 ## Operational Safety
 
@@ -204,8 +206,8 @@ and a safe change checklist.
   session data.
 - Keep ADB bound to loopback and reach it over SSH.
 - Use a dedicated host or VM for this service.
-- Use Play Store images for Play Store compatibility.
-- Use Google APIs images when root is needed and Play Store identity is not.
+- Root VMs use Play Store images with Magisk. Keep their test state separate
+  from production accounts.
 - Back up the state directory and VM data together before maintenance.
 - Treat VM snapshots and disks as sensitive user data.
 

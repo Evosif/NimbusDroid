@@ -1,343 +1,1192 @@
 <!doctype html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#111318">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#090b10">
   <title>Droid Cloud</title>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/style.css">
   <script type="module" src="/app.js"></script>
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" class="symbol-library" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-wall" viewBox="0 0 24 24"><rect x="3" y="3.5" width="5" height="7.5" rx="1.2"/><rect x="9.5" y="3.5" width="5" height="7.5" rx="1.2"/><rect x="16" y="3.5" width="5" height="7.5" rx="1.2"/><rect x="3" y="13" width="5" height="7.5" rx="1.2"/><rect x="9.5" y="13" width="5" height="7.5" rx="1.2"/><rect x="16" y="13" width="5" height="7.5" rx="1.2"/></symbol>
     <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3-9 5 9 5 9-5-9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
-    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4.5"/><path d="m11.3 11.7 8.2-8.2M17 6l2.5 2.5M14.5 8.5 17 11"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 9a7 7 0 0 1 11.5-2L20 10M4 14l2.5 3A7 7 0 0 0 18 15"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 6 9 6-9 6V6Z"/></symbol>
-    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8.5 5.5 10 6.5-10 6.5v-13Z"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/></symbol>
     <symbol id="i-restart" viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M18.4 9A7 7 0 1 0 19 15"/></symbol>
-    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 5h4M10.5 18.5h3"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="0.8"/><path d="M9 2.5V6M15 2.5V6M9 18v3.5M15 18v3.5M2.5 9H6M2.5 15H6M18 9h3.5M18 15h3.5"/></symbol>
+    <symbol id="i-memory" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 10v4M11 10v4M15 10v4M7 17v2.5M12 17v2.5M17 17v2.5"/></symbol>
+    <symbol id="i-disk" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.6 3 8.4 7 9.5 4-1.1 7-4.9 7-9.5V6l-7-3Z"/><path d="m9.5 12 1.8 1.8L15 10"/></symbol>
     <symbol id="i-map" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
     <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h4l1.5-2h5L16 7h4a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="4"/></symbol>
     <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l4.5-1 10-10a3.5 3.5 0 0 0-5-5l-10 10L4 20Z"/></symbol>
     <symbol id="i-eraser" viewBox="0 0 24 24"><path d="m4 15 9-11 7 6-8 10H7l-3-3v-2Z"/><path d="m10 11 7 6M9 20h11"/></symbol>
-    <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 6 6 6-6 6M13 18h7"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/></symbol>
     <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
     <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></symbol>
-    <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6"/></symbol>
-    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-7 9 7M5.5 10.5v9h13v-9M9.5 19.5v-6h5v6"/></symbol>
-    <symbol id="i-apps" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2.5h6"/></symbol>
-    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Zm12-1a6 6 0 0 1 0 8m2-11a10 10 0 0 1 0 14"/></symbol>
-    <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 2v10M7 5.5a8 8 0 1 0 10 0"/></symbol>
+    <symbol id="i-nav-back" viewBox="0 0 24 24"><path d="M17 5 7 12l10 7V5Z"/></symbol>
+    <symbol id="i-nav-home" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></symbol>
+    <symbol id="i-nav-recents" viewBox="0 0 24 24"><rect x="5.5" y="5.5" width="13" height="13" rx="2"/></symbol>
+    <symbol id="i-vol-up" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Zm13 0v6m-3-3h6"/></symbol>
+    <symbol id="i-vol-down" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Zm11 3h5"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v9M7 6a8 8 0 1 0 10 0"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m3 0-1 14H7L6 7m4 4v6m4-6v6"/></symbol>
     <symbol id="i-clone" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
-    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.37a1.7 1.7 0 0 0-1 .63 1.7 1.7 0 0 0-.37 1.07V21h-4v-.09A1.7 1.7 0 0 0 8.61 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.23 15a1.7 1.7 0 0 0-.63-1A1.7 1.7 0 0 0 2.53 13.6H2.4v-4h.13A1.7 1.7 0 0 0 4.2 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 8.6 4.2 1.7 1.7 0 0 0 9.6 3.6V3.4h4v.2a1.7 1.7 0 0 0 1 1.57 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9v.1a1.7 1.7 0 0 0 .63 1 1.7 1.7 0 0 0 1.07.37H21v4h-.09A1.7 1.7 0 0 0 19.4 15Z"/></symbol>
-    <symbol id="i-menu" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="12" cy="18.5" r="1.3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 10.6a2.8 2.8 0 0 0 3.8 3.8"/><path d="M9.9 5.7A10 10 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 0 1-3.1 4.1M6.5 7.4A17 17 0 0 0 2.5 12s3.5 6.5 9.5 6.5a10 10 0 0 0 3.3-.6"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2" transform="rotate(-30 12 12)"/><path d="M3 12a9 9 0 0 1 3-6.7M21 12a9 9 0 0 1-3 6.7"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 10a6 6 0 1 1 12 0c0 5 2 6.5 2 6.5H4s2-1.5 2-6.5Z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></symbol>
+    <symbol id="i-apps" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+    <symbol id="i-logs" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0V8ZM12 16v5"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2.5" y="7" width="16.5" height="10" rx="2"/><path d="M21.5 10.5v3M6 10v4M9.5 10v4"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></symbol>
+    <symbol id="i-broadcast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9.2 9.2 0 0 0 0 13M18.5 5.5a9.2 9.2 0 0 1 0 13"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"/></symbol>
+    <symbol id="i-fingerprint" viewBox="0 0 24 24"><path d="M12 11v4M9 12a3 3 0 0 1 6 0v3.5M6.5 11.5a5.5 5.5 0 0 1 11 0v4.5M4.5 10.5a7.5 7.5 0 0 1 15 0v3M7.5 18.5c1.2-.8 1.5-2 1.5-3.5M14.5 19.5c.8-1 1-2.2 1-4"/></symbol>
+    <symbol id="i-disc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></symbol>
   </svg>
 
+  <!-- LOGIN -->
   <section id="login" class="login-view" hidden>
-    <div class="login-card">
-      <img class="login-logo" src="/assets/logo-mark.svg" alt="Droid Cloud">
-      <p class="eyebrow">DROID CLOUD</p>
-      <h1>Masuk ke controller</h1>
-      <p class="login-copy">Gunakan kata sandi administrator untuk mengelola mesin Android.</p>
-      <form id="login-form">
-        <label class="field-label" for="login-password">Kata sandi</label>
-        <div class="password-field">
-          <svg><use href="#i-lock"/></svg>
-          <input id="login-password" type="password" autocomplete="current-password" required autofocus>
+    <button class="icon-btn login-theme-btn" data-action="toggle-theme" type="button" title="Toggle theme" aria-label="Toggle theme">
+      <svg class="theme-icon-sun"><use href="#i-sun"/></svg>
+      <svg class="theme-icon-moon"><use href="#i-moon"/></svg>
+    </button>
+
+    <div class="login-shell">
+      <div class="login-hero">
+        <div class="login-emblem">
+          <img src="/assets/logo-mark.svg" alt="Droid Cloud">
         </div>
-        <p id="login-message" class="form-message" aria-live="polite"></p>
-        <button class="button primary wide" type="submit">Masuk</button>
-      </form>
-      <p class="login-help">Kata sandi dikelola oleh administrator workspace.</p>
+        <h1>Sign in to Droid Cloud</h1>
+        <p>Cloud Android virtualization, fleet orchestration, and synchronized phone farm control.</p>
+      </div>
+
+      <div class="login-card">
+        <form id="login-form">
+          <label class="field-label" for="login-password">Administrator password</label>
+          <div class="password-field">
+            <svg class="field-icon"><use href="#i-lock"/></svg>
+            <input id="login-password" type="password" autocomplete="current-password" placeholder="Enter your password" required autofocus>
+            <button id="toggle-password" class="password-toggle" type="button" aria-label="Show password">
+              <svg><use href="#i-eye"/></svg>
+            </button>
+          </div>
+          <p id="login-message" class="login-msg" aria-live="polite"></p>
+          <button class="btn primary block lg" type="submit">
+            <span>Continue to Console</span>
+            <svg><use href="#i-arrow-right"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="login-meta">
+        <span><svg><use href="#i-shield"/></svg>Encrypted Session</span>
+        <span class="meta-dot"></span>
+        <span>Loopback ADB</span>
+        <span class="meta-dot"></span>
+        <span>API Tokens</span>
+      </div>
     </div>
   </section>
 
+  <!-- APP SHELL -->
   <div id="app" class="app-shell" hidden>
-    <aside class="sidebar">
-      <button class="brand" data-action="dashboard" aria-label="Buka dashboard">
-        <img class="brand-logo" src="/assets/logo-mark.svg" alt="">
-        <span><strong>droid</strong><small>cloud</small></span>
-      </button>
-      <nav class="nav" aria-label="Navigasi utama">
-        <p class="nav-label">Manage</p>
-        <button class="nav-item active" data-action="dashboard">
-          <svg><use href="#i-grid"/></svg><span>Virtual machines</span>
+    <div id="sidebar-backdrop" class="backdrop" hidden></div>
+
+    <aside id="sidebar" class="sidebar" aria-label="Platform navigation">
+      <div class="sb-head">
+        <button class="sb-brand" data-nav="devices" type="button" title="Droid Cloud">
+          <img src="/assets/logo-mark.svg" alt="">
+          <span>Droid Cloud</span>
+        </button>
+      </div>
+
+      <nav class="sb-nav">
+        <button class="sb-item active" data-nav="devices" type="button">
+          <svg><use href="#i-grid"/></svg>
+          <span>Devices</span>
+          <span id="nav-count" class="sb-count">0</span>
+        </button>
+        <button class="sb-item" data-nav="wall" type="button">
+          <svg><use href="#i-wall"/></svg>
+          <span>Control Wall</span>
+          <span id="nav-wall-count" class="sb-count live">0</span>
+        </button>
+        <button class="sb-item" data-nav="templates" type="button">
+          <svg><use href="#i-layers"/></svg>
+          <span>Templates</span>
+        </button>
+        <button class="sb-item" data-nav="macros" type="button">
+          <svg><use href="#i-bolt"/></svg>
+          <span>Macros</span>
+        </button>
+        <button class="sb-item" data-nav="cluster" type="button">
+          <svg><use href="#i-key"/></svg>
+          <span>API &amp; Cluster</span>
         </button>
       </nav>
-      <section class="quick-machines">
-        <div class="quick-heading"><span>Mesin</span><span id="quick-count">0</span></div>
-        <div id="quick-list" class="quick-list"></div>
-      </section>
-      <div class="sidebar-foot">
-        <div class="host-line"><span class="status-dot online"></span><span>Controller online</span></div>
-        <button id="logout-button" class="text-button">Keluar</button>
+
+      <div class="sb-search">
+        <svg><use href="#i-search"/></svg>
+        <input id="sidebar-search-input" type="search" placeholder="Find device..." autocomplete="off" aria-label="Find device">
+        <kbd>/</kbd>
+      </div>
+
+      <div class="sb-section">
+        <span>Instances</span>
+        <div id="quick-pager" class="sb-pager" hidden>
+          <button id="quick-prev" type="button" aria-label="Previous page"><svg><use href="#i-chevron-left"/></svg></button>
+          <span id="quick-page-label">1/1</span>
+          <button id="quick-next" type="button" aria-label="Next page"><svg><use href="#i-chevron"/></svg></button>
+        </div>
+      </div>
+
+      <div id="quick-list" class="sb-list"></div>
+
+      <div class="sb-foot">
+        <button id="logout-button" class="sb-item" type="button">
+          <svg><use href="#i-logout"/></svg>
+          <span>Sign out</span>
+        </button>
       </div>
     </aside>
 
-    <div class="app-main">
-      <header class="topbar">
-        <div>
-          <p class="topbar-kicker">Droid Cloud</p>
-          <h2 id="page-title">Virtual machines</h2>
-        </div>
-        <div class="topbar-actions">
-          <button id="refresh-button" class="icon-button" type="button" title="Muat ulang"><svg><use href="#i-refresh"/></svg></button>
-          <button class="button primary" type="button" data-action="create"><svg><use href="#i-plus"/></svg><span>Buat VM</span></button>
-        </div>
-      </header>
-
-      <main class="content">
-        <section id="dashboard-view">
-          <div class="page-intro">
-            <div>
-              <p class="eyebrow">INFRASTRUCTURE</p>
-              <h1>Mesin Android</h1>
-              <p>Buat, jalankan, dan hubungkan perangkat virtual dari satu tempat.</p>
+    <div class="workspace">
+      <!-- ==================== VIEW 1: DEVICES FLEET ==================== -->
+      <section id="devices-view" class="view">
+        <header class="view-head">
+          <div class="vh-left">
+            <button class="icon-btn ghost" data-action="toggle-sidebar" type="button" title="Toggle sidebar ([)" aria-label="Toggle sidebar"><svg><use href="#i-sidebar"/></svg></button>
+            <h1>Devices</h1>
+          </div>
+          <div class="vh-right">
+            <div id="bulk-bar" class="bulk-bar" hidden>
+              <span id="bulk-count">0 selected</span>
+              <button id="bulk-wall" class="btn" type="button"><svg><use href="#i-wall"/></svg>Control Wall</button>
+              <button id="bulk-start" class="btn" type="button"><svg><use href="#i-play"/></svg>Start</button>
+              <button id="bulk-stop" class="btn" type="button"><svg><use href="#i-stop"/></svg>Stop</button>
             </div>
-            <span class="host-capacity" id="capacity-note">Host resources</span>
+            <button class="icon-btn ghost" data-action="toggle-theme" type="button" title="Toggle light / dark theme" aria-label="Toggle theme">
+              <svg class="theme-icon-sun"><use href="#i-sun"/></svg>
+              <svg class="theme-icon-moon"><use href="#i-moon"/></svg>
+            </button>
+            <button id="refresh-button" class="icon-btn" type="button" title="Refresh" aria-label="Refresh"><svg><use href="#i-refresh"/></svg></button>
+            <button class="btn primary" data-action="create" type="button"><svg><use href="#i-plus"/></svg>New Device</button>
+          </div>
+        </header>
+
+        <div class="view-body">
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-top">
+                <span class="metric-label">Active Devices</span>
+                <svg class="metric-ico"><use href="#i-phone"/></svg>
+              </div>
+              <div class="metric-value"><strong id="stat-running">0</strong><span id="stat-total">/ 0</span></div>
+              <span id="stat-sub-vms" class="metric-sub">—</span>
+            </div>
+            <div class="metric">
+              <div class="metric-top">
+                <span class="metric-label">Host CPU</span>
+                <svg class="metric-ico"><use href="#i-cpu"/></svg>
+              </div>
+              <div class="metric-value"><strong id="stat-host-cpu-percent">—</strong></div>
+              <div class="meter"><i id="cpu-meter"></i></div>
+              <span id="stat-host-cpu" class="metric-sub">—</span>
+            </div>
+            <div class="metric">
+              <div class="metric-top">
+                <span class="metric-label">Host Memory</span>
+                <svg class="metric-ico"><use href="#i-memory"/></svg>
+              </div>
+              <div class="metric-value"><strong id="stat-host-ram-percent">—</strong></div>
+              <div class="meter"><i id="ram-meter"></i></div>
+              <span id="stat-host-ram" class="metric-sub">—</span>
+            </div>
+            <div class="metric">
+              <div class="metric-top">
+                <span class="metric-label">Storage &amp; Templates</span>
+                <svg class="metric-ico"><use href="#i-disk"/></svg>
+              </div>
+              <div class="metric-value"><strong id="stat-disk-free">—</strong><span>free</span></div>
+              <div class="meter"><i id="disk-meter"></i></div>
+              <span id="stat-root-summary" class="metric-sub">—</span>
+            </div>
           </div>
 
-          <div class="stats">
-            <article class="stat-card"><span>Status</span><strong id="stat-running">0 <small>aktif</small></strong><p id="stat-total">dari 0 mesin</p></article>
-            <article class="stat-card monitor-card"><span>CPU host</span><strong id="stat-host-cpu-percent">—</strong><div class="meter"><i id="cpu-meter"></i></div><p id="stat-host-cpu">—</p></article>
-            <article class="stat-card monitor-card"><span>RAM host</span><strong id="stat-host-ram-percent">—</strong><div class="meter"><i id="ram-meter"></i></div><p id="stat-host-ram">—</p></article>
-            <article class="stat-card"><span>Autostart</span><strong id="stat-autostart">0 <small>mesin</small></strong><p>Saat host menyala</p></article>
-          </div>
-
-          <section class="table-card">
-            <div class="section-head">
-              <div><h2>Daftar mesin</h2><p>Status diperbarui otomatis setiap 3 detik.</p></div>
-              <span id="last-updated" class="muted-label">Memuat...</span>
+          <section class="fleet-panel">
+            <div class="fleet-toolbar">
+              <div class="toolbar-left">
+                <div class="segmented" role="tablist" aria-label="Filter status">
+                  <button class="active" data-filter="all" type="button">All <em id="filter-count-all">0</em></button>
+                  <button data-filter="running" type="button">Running <em id="filter-count-running">0</em></button>
+                  <button data-filter="stopped" type="button">Stopped <em id="filter-count-stopped">0</em></button>
+                  <button data-filter="root" type="button">Root <em id="filter-count-root">0</em></button>
+                </div>
+                <select id="group-filter" class="compact-select" aria-label="Filter by group">
+                  <option value="all">All groups</option>
+                </select>
+              </div>
+              <div class="toolbar-right">
+                <div class="search-input">
+                  <svg><use href="#i-search"/></svg>
+                  <input id="table-search-input" type="search" placeholder="Search name, OS, serial..." autocomplete="off" aria-label="Filter devices">
+                </div>
+                <div class="view-switch" role="group" aria-label="Layout mode">
+                  <button id="view-list-btn" class="active" data-view-mode="table" type="button" title="Table view" aria-label="Table view"><svg><use href="#i-list"/></svg></button>
+                  <button id="view-grid-btn" data-view-mode="grid" type="button" title="Card view" aria-label="Card view"><svg><use href="#i-grid"/></svg></button>
+                </div>
+              </div>
             </div>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Mesin</th><th>Status</th><th>Profil</th><th>Alokasi</th><th>ADB</th><th aria-label="Aksi"></th></tr></thead>
+
+            <div id="table-container" class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="col-check"><input id="select-all-vms" type="checkbox" aria-label="Select all"></th>
+                    <th>Device</th>
+                    <th>Group</th>
+                    <th>Status</th>
+                    <th>System</th>
+                    <th>Resources</th>
+                    <th>ADB Endpoint</th>
+                    <th class="col-actions">Actions</th>
+                  </tr>
+                </thead>
                 <tbody id="machine-table"></tbody>
               </table>
             </div>
-            <div id="empty-state" class="empty-state" hidden>
-              <span class="empty-icon"><svg><use href="#i-phone"/></svg></span>
-              <h3>Belum ada mesin</h3>
-              <p>Buat VM Android pertama Anda.</p>
-              <button class="button primary" data-action="create">Buat VM</button>
+
+            <div id="card-grid" class="card-grid" hidden></div>
+
+            <div id="empty-state" class="empty" hidden>
+              <span class="empty-badge"><svg><use href="#i-phone"/></svg></span>
+              <h3>No virtual devices yet</h3>
+              <p>Create your first Android device or deploy a batch from Templates.</p>
+              <button class="btn primary" data-action="create" type="button"><svg><use href="#i-plus"/></svg>New Device</button>
+            </div>
+            <div id="filter-empty-state" class="empty" hidden>
+              <span class="empty-badge"><svg><use href="#i-search"/></svg></span>
+              <h3>No matching devices</h3>
+              <p>Adjust your search query, group, or status filter.</p>
+              <button id="reset-filters-button" class="btn" type="button">Reset filters</button>
             </div>
           </section>
-        </section>
+        </div>
+      </section>
 
-        <section id="detail-view" hidden>
-          <div class="detail-topline">
-            <button class="back-button" data-action="dashboard"><svg><use href="#i-back"/></svg><span>Semua mesin</span></button>
+      <!-- ==================== VIEW 2: MASSIVE REMOTE CONTROL WALL ==================== -->
+      <section id="wall-view" class="view" hidden>
+        <header class="view-head">
+          <div class="vh-left">
+            <button class="icon-btn ghost" data-action="toggle-sidebar" type="button" title="Toggle sidebar ([)" aria-label="Toggle sidebar"><svg><use href="#i-sidebar"/></svg></button>
+            <h1>Control Wall</h1>
+            <button id="wall-sync-toggle" class="sync-pill active" type="button" title="Toggle Master-to-Slaves synchronized control">
+              <svg><use href="#i-broadcast"/></svg>
+              <span id="wall-sync-label">Sync ON</span>
+              <em id="wall-sync-count">0</em>
+            </button>
           </div>
-          <div class="detail-heading">
-            <div class="detail-title">
-              <div>
-                <div class="title-row"><h1 id="detail-name">Mesin</h1><span id="detail-status-pill" class="status-pill">Stopped</span></div>
-                <p id="detail-subtitle">Android 15</p>
+          <div class="vh-right wall-controls">
+            <select id="wall-group" class="compact-select" aria-label="Wall group">
+              <option value="all">All groups</option>
+            </select>
+            <select id="wall-jitter" class="compact-select" aria-label="Humanization jitter" title="Random delay & coordinate jitter">
+              <option value="0|0">Timing: Exact</option>
+              <option value="120|4">Jitter: Light</option>
+              <option value="320|8">Jitter: Natural</option>
+            </select>
+            <div class="segmented" aria-label="Wall stream mode">
+              <button class="active" data-wall-stream="live" type="button">Live</button>
+              <button data-wall-stream="snapshot" type="button">Snapshot</button>
+            </div>
+            <div class="segmented" aria-label="Wall columns">
+              <button data-wall-cols="2" type="button">2</button>
+              <button class="active" data-wall-cols="3" type="button">3</button>
+              <button data-wall-cols="4" type="button">4</button>
+              <button data-wall-cols="6" type="button">6</button>
+            </div>
+            <button class="icon-btn ghost" data-action="toggle-theme" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <svg class="theme-icon-sun"><use href="#i-sun"/></svg>
+              <svg class="theme-icon-moon"><use href="#i-moon"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="wall-workspace">
+          <!-- MASTER SYNCHRONIZED CONTROLLER -->
+          <section class="wall-master" id="wall-master">
+            <div class="wm-head">
+              <div class="wm-head-left">
+                <span class="tag accent">MASTER</span>
+                <select id="wall-master-select" class="compact-select" aria-label="Select master device"></select>
+              </div>
+              <div class="segmented" aria-label="Master input mode">
+                <button id="master-mode-sync" class="active" data-master-mode="sync" type="button" title="Capture tap/swipe and broadcast to all synced phones">Sync Touch</button>
+                <button id="master-mode-direct" data-master-mode="direct" type="button" title="Raw direct pointer to Master only">Direct</button>
               </div>
             </div>
-            <div class="detail-actions">
-              <button id="power-button" class="button" type="button"><svg><use href="#i-play"/></svg><span>Mulai</span></button>
-              <button id="details-button" class="button" type="button"><svg><use href="#i-menu"/></svg><span>Kelola</span></button>
-            </div>
-          </div>
-          <div id="detail-error" class="inline-alert" hidden></div>
 
-          <div class="detail-grid">
-            <section class="console-card">
-              <div class="console-head">
-                <div class="console-state"><span id="console-dot" class="status-dot"></span><span id="console-label">Terputus</span></div>
-                <div class="console-actions">
-                  <button id="screenshot-button" class="icon-button compact" type="button" title="Unduh screenshot"><svg><use href="#i-camera"/></svg></button>
-                  <button id="fullscreen-button" class="icon-button compact" type="button" title="Layar penuh"><svg><use href="#i-expand"/></svg></button>
-                  <button id="inspector-button" class="icon-button compact inspector-trigger" type="button" title="Buka detail mesin"><svg><use href="#i-settings"/></svg></button>
+            <div class="wm-stage" id="wall-master-stage">
+              <div class="device-frame wall-master-frame" id="wall-master-frame">
+                <div id="wall-master-screen" class="device-screen" tabindex="0"></div>
+                <div id="wall-master-capture" class="sync-capture-layer" title="Tap, hold, or swipe to broadcast to all synced devices">
+                  <svg id="wall-gesture-svg" class="gesture-svg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+                </div>
+                <div id="wall-master-empty" class="console-overlay">
+                  <strong>No running device</strong>
+                  <span>Start a device to drive the Control Wall.</span>
                 </div>
               </div>
-              <div class="console-stage" id="console-stage">
-                <div class="device-frame">
-                  <div id="screen" class="device-screen" tabindex="0" aria-label="Layar Android"></div>
-                  <div id="console-overlay" class="console-overlay">
-                    <span class="loader"></span>
-                    <strong id="console-overlay-title">Menghubungkan</strong>
-                    <span id="console-overlay-message">Menyiapkan tampilan perangkat...</span>
+            </div>
+
+            <div class="wm-nav">
+              <button data-farm-key="back" type="button" title="Sync Back"><svg><use href="#i-nav-back"/></svg></button>
+              <button data-farm-key="home" type="button" title="Sync Home"><svg><use href="#i-nav-home"/></svg></button>
+              <button data-farm-key="recents" type="button" title="Sync Recents"><svg><use href="#i-nav-recents"/></svg></button>
+              <button data-farm-key="wake" type="button" title="Wake All"><svg><use href="#i-sun"/></svg></button>
+              <button data-farm-key="rotate" type="button" title="Rotate All"><svg><use href="#i-rotate"/></svg></button>
+              <button data-farm-key="power" type="button" title="Power All"><svg><use href="#i-power"/></svg></button>
+            </div>
+          </section>
+
+          <!-- MULTI-DEVICE MATRIX WALL -->
+          <section class="wall-matrix-col">
+            <div class="wall-subbar">
+              <div class="ws-left">
+                <button id="wall-select-running" class="btn sm" type="button">Select Running</button>
+                <button id="wall-select-all" class="btn sm" type="button">Select All</button>
+                <button id="wall-clear-sel" class="btn sm" type="button">Clear</button>
+                <span class="ws-sep"></span>
+                <button id="wall-power-start" class="btn sm" type="button"><svg><use href="#i-play"/></svg>Stagger Start</button>
+                <button id="wall-power-stop" class="btn sm" type="button"><svg><use href="#i-stop"/></svg>Stop</button>
+                <button id="wall-power-reboot" class="btn sm" type="button"><svg><use href="#i-restart"/></svg>Reboot</button>
+              </div>
+              <div class="ws-right">
+                <div id="wall-pager" class="sb-pager" hidden>
+                  <button id="wall-prev" type="button" aria-label="Previous wall page"><svg><use href="#i-chevron-left"/></svg></button>
+                  <span id="wall-page-label">1/1</span>
+                  <button id="wall-next" type="button" aria-label="Next wall page"><svg><use href="#i-chevron"/></svg></button>
+                </div>
+              </div>
+            </div>
+
+            <div id="wall-grid" class="wall-grid"></div>
+          </section>
+
+          <!-- RIGHT BROADCAST DRAWER -->
+          <aside id="farm-dock" class="widget-panel" hidden>
+            <header class="wp-head">
+              <h2 id="farm-dock-title">Broadcast</h2>
+              <button id="farm-dock-close" class="icon-btn ghost" type="button" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+            </header>
+            <div class="wp-body">
+              <!-- FARM: KEYS & URL -->
+              <section data-farm-panel="controls">
+                <p class="wp-help">Broadcast hardware keys or open a URL across all synced targets.</p>
+                <div class="chip-grid">
+                  <button class="chip" data-farm-key="wake" type="button">Wake Screen</button>
+                  <button class="chip" data-farm-key="home" type="button">Home</button>
+                  <button class="chip" data-farm-key="back" type="button">Back</button>
+                  <button class="chip" data-farm-key="recents" type="button">Recents</button>
+                  <button class="chip" data-farm-key="volume-up" type="button">Volume +</button>
+                  <button class="chip" data-farm-key="volume-down" type="button">Volume −</button>
+                  <button class="chip" data-farm-key="rotate" type="button">Rotate</button>
+                  <button class="chip" data-farm-key="notification" type="button">Notifications</button>
+                </div>
+                <h3 class="wp-sub"><span>Open URL on All</span></h3>
+                <form id="farm-url-form">
+                  <label class="field">
+                    <input id="farm-url-input" type="text" placeholder="https://example.com or market://..." required>
+                  </label>
+                  <button class="btn primary block" type="submit"><svg><use href="#i-globe"/></svg>Open on Targets</button>
+                </form>
+              </section>
+
+              <!-- FARM: TEXT BROADCAST -->
+              <section data-farm-panel="text">
+                <p class="wp-help">Send identical text to every device, or assign 1 unique line per device.</p>
+                <div class="segmented full" style="grid-template-columns:1fr 1fr;margin-bottom:10px">
+                  <button class="active" data-farm-text-mode="same" type="button">Same to All</button>
+                  <button data-farm-text-mode="per-line" type="button">1 Line / Device</button>
+                </div>
+                <form id="farm-text-form">
+                  <textarea id="farm-text-input" rows="5" placeholder="Enter text (or one line per device in 1-line mode)..."></textarea>
+                  <div class="row-between">
+                    <label class="check"><input id="farm-text-submit" type="checkbox" checked><span>Send Enter</span></label>
+                    <button id="farm-text-btn" class="btn primary" type="submit"><svg><use href="#i-send"/></svg>Broadcast</button>
                   </div>
+                </form>
+              </section>
+
+              <!-- FARM: BATCH APK & PACKAGES -->
+              <section data-farm-panel="apps">
+                <p class="wp-help">Upload one APK once and install in parallel across all synced running devices.</p>
+                <form id="farm-apk-form">
+                  <label id="farm-apk-zone" class="dropzone" for="farm-apk-file">
+                    <svg><use href="#i-upload"/></svg>
+                    <span><strong id="farm-apk-label">Drop or browse .apk</strong><small id="farm-apk-sub">Parallel fleet install</small></span>
+                    <input id="farm-apk-file" type="file" accept=".apk,application/vnd.android.package-archive">
+                  </label>
+                  <div id="farm-apk-prog-wrap" hidden><div class="meter"><i id="farm-apk-prog-bar"></i></div></div>
+                  <button id="farm-apk-btn" class="btn primary block" type="submit" disabled>Deploy APK to Fleet</button>
+                </form>
+                <h3 class="wp-sub"><span>Batch Package Action</span></h3>
+                <form id="farm-pkg-form">
+                  <label class="field">
+                    <span>Package ID</span>
+                    <input id="farm-pkg-name" type="text" placeholder="com.example.app" required>
+                  </label>
+                  <div class="chip-grid" style="margin-top:8px">
+                    <button class="chip" data-farm-pkg="launch" type="button">Launch All</button>
+                    <button class="chip" data-farm-pkg="stop" type="button">Force Stop</button>
+                    <button class="chip" data-farm-pkg="clear" type="button">Clear Data</button>
+                    <button class="chip danger-chip" data-farm-pkg="uninstall" type="button">Uninstall</button>
+                  </div>
+                </form>
+              </section>
+
+              <!-- FARM: BATCH GPS SCATTER -->
+              <section data-farm-panel="gps">
+                <p class="wp-help">Assign GPS coordinates across targets, optionally scattering each device realistically within a radius.</p>
+                <div class="chip-grid">
+                  <button class="chip" data-farm-loc="Jakarta|-6.2088|106.8456" type="button">Jakarta</button>
+                  <button class="chip" data-farm-loc="Bandung|-6.9175|107.6191" type="button">Bandung</button>
+                  <button class="chip" data-farm-loc="Singapore|1.3521|103.8198" type="button">Singapore</button>
+                  <button class="chip" data-farm-loc="Tokyo|35.6762|139.6503" type="button">Tokyo</button>
                 </div>
+                <form id="farm-gps-form" class="form-grid">
+                  <label class="field"><span>Latitude</span><input id="farm-lat" type="number" min="-90" max="90" step="0.000001" placeholder="-6.2088" required></label>
+                  <label class="field"><span>Longitude</span><input id="farm-lon" type="number" min="-180" max="180" step="0.000001" placeholder="106.8456" required></label>
+                  <div class="span-2">
+                    <div class="row-between"><span class="field-label">Scatter radius</span><strong class="mono"><span id="farm-scatter-val">0</span> m</strong></div>
+                    <input id="farm-scatter" type="range" min="0" max="5000" step="100" value="0">
+                  </div>
+                  <button class="btn primary span-2" type="submit"><svg><use href="#i-map"/></svg>Apply GPS to Targets</button>
+                </form>
+              </section>
+
+              <!-- FARM: BATCH SHELL & MACROS -->
+              <section data-farm-panel="shell">
+                <p class="wp-help">Execute a parallel ADB shell command or run a saved macro across all synced devices.</p>
+                <form id="farm-shell-form" class="shell-row">
+                  <span>$</span>
+                  <input id="farm-shell-cmd" type="text" maxlength="500" placeholder="getprop ro.build.version.release" autocomplete="off" spellcheck="false">
+                  <button id="farm-shell-run" class="btn primary" type="submit">Run</button>
+                </form>
+                <h3 class="wp-sub"><span>Quick Macros</span></h3>
+                <div id="farm-macro-quick" class="pkg-list"></div>
+              </section>
+
+              <!-- FARM: BATCH REAL DEVICE IDENTITY -->
+              <section data-farm-panel="identity">
+                <p class="wp-help">Spoof verified real-device fingerprints across synced devices. Choose Random to assign a unique real smartphone model, serial, IMEI &amp; Android ID to every target.</p>
+                <form id="farm-identity-form">
+                  <label class="field" style="margin-bottom:8px">
+                    <span>Community Fingerprint</span>
+                    <select id="farm-id-profile"></select>
+                  </label>
+                  <label class="field" style="margin-bottom:10px">
+                    <span>SIM / Carrier</span>
+                    <select id="farm-id-carrier"></select>
+                  </label>
+                  <label class="check" style="margin-bottom:10px">
+                    <input id="farm-id-reboot" type="checkbox">
+                    <span>Staggered reboot after apply (full Build.* reload)</span>
+                  </label>
+                  <button id="farm-id-btn" class="btn primary block" type="submit"><svg><use href="#i-fingerprint"/></svg>Apply Identity to Targets</button>
+                </form>
+              </section>
+
+              <!-- LIVE BROADCAST RESULT MATRIX -->
+              <div id="farm-results-box" class="farm-results" hidden>
+                <div class="wp-sub">
+                  <span id="farm-results-title">Last Broadcast</span>
+                  <button id="farm-results-clear" class="link" type="button">Clear</button>
+                </div>
+                <div id="farm-results-list" class="pkg-list"></div>
               </div>
-              <div class="console-controls">
-                <button class="control-button" data-shortcut="b" type="button" title="Kembali"><svg><use href="#i-back"/></svg><span>Kembali</span></button>
-                <button class="control-button active" data-shortcut="h" type="button" title="Beranda"><svg><use href="#i-home"/></svg><span>Beranda</span></button>
-                <button class="control-button" data-shortcut="s" type="button" title="Aplikasi terbaru"><svg><use href="#i-apps"/></svg><span>Terbaru</span></button>
-                <span class="control-spacer"></span>
-                <button class="control-icon" data-shortcut="up" type="button" title="Volume naik"><svg><use href="#i-volume"/></svg></button>
-                <button class="control-icon" data-shortcut="p" type="button" title="Power"><svg><use href="#i-power"/></svg></button>
+            </div>
+          </aside>
+
+          <!-- FAR-RIGHT BROADCAST RAIL -->
+          <nav class="widget-rail" aria-label="Farm broadcast tools">
+            <div class="rail-group">
+              <button class="rail-btn" data-farm-dock="controls" type="button" title="Keys &amp; URL Broadcast"><svg><use href="#i-broadcast"/></svg></button>
+              <button class="rail-btn" data-farm-dock="text" type="button" title="Text / Multi-Line Broadcast"><svg><use href="#i-keyboard"/></svg></button>
+              <button class="rail-btn" data-farm-dock="apps" type="button" title="Batch APK &amp; Apps"><svg><use href="#i-apps"/></svg></button>
+              <button class="rail-btn" data-farm-dock="gps" type="button" title="Batch GPS &amp; Scatter"><svg><use href="#i-map"/></svg></button>
+              <button class="rail-btn" data-farm-dock="identity" type="button" title="Batch Real Device Identity"><svg><use href="#i-fingerprint"/></svg></button>
+              <button class="rail-btn" data-farm-dock="shell" type="button" title="Batch Shell &amp; Macros"><svg><use href="#i-terminal"/></svg></button>
+            </div>
+          </nav>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: TEMPLATES & IMAGES ==================== -->
+      <section id="templates-view" class="view" hidden>
+        <header class="view-head">
+          <div class="vh-left">
+            <button class="icon-btn ghost" data-action="toggle-sidebar" type="button" title="Toggle sidebar ([)" aria-label="Toggle sidebar"><svg><use href="#i-sidebar"/></svg></button>
+            <h1>Templates &amp; Images</h1>
+          </div>
+          <div class="vh-right">
+            <button class="icon-btn ghost" data-action="toggle-theme" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <svg class="theme-icon-sun"><use href="#i-sun"/></svg>
+              <svg class="theme-icon-moon"><use href="#i-moon"/></svg>
+            </button>
+            <button id="open-batch-clone-btn" class="btn" type="button"><svg><use href="#i-clone"/></svg>Batch Clone</button>
+            <button class="btn primary" data-action="create" type="button"><svg><use href="#i-plus"/></svg>Batch Create</button>
+          </div>
+        </header>
+
+        <div class="view-body">
+          <section class="fleet-panel" style="margin-bottom:18px">
+            <div class="fleet-toolbar">
+              <strong class="panel-heading">Community Android VM ISOs (QEMU/KVM · Real Kernel)</strong>
+              <div class="toolbar-right">
+                <span class="hint">Native KVM Android VMs without emulator ranchu/goldfish signatures</span>
+                <button id="iso-refresh-btn" class="btn sm" type="button"><svg><use href="#i-refresh"/></svg>Refresh</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table compact">
+                <thead><tr><th>ISO Image</th><th>Android</th><th>Variant</th><th>Status</th><th class="col-actions">Action</th></tr></thead>
+                <tbody id="iso-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="fleet-panel" style="margin-bottom:18px">
+            <div class="fleet-toolbar">
+              <strong class="panel-heading">Community Real-Device Fingerprints</strong>
+              <div class="toolbar-right">
+                <div class="search-input" style="width:190px"><svg><use href="#i-search"/></svg><input id="fp-search" type="search" placeholder="Filter model, brand..." autocomplete="off"></div>
+                <button id="fp-sync-btn" class="btn sm" type="button"><svg><use href="#i-refresh"/></svg>Sync Official OTA</button>
+                <button id="fp-import-btn" class="btn sm primary" type="button"><svg><use href="#i-plus"/></svg>Import PIF / JSON</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table compact">
+                <thead><tr><th>Device</th><th>Model / Codename</th><th>SoC &amp; Patch</th><th>Fingerprint</th><th class="col-actions">Source</th></tr></thead>
+                <tbody id="fp-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="fleet-panel" style="margin-bottom:18px">
+            <div class="fleet-toolbar">
+              <strong class="panel-heading">Golden Device Templates</strong>
+              <span class="hint">Mark any stopped device as a template from its manage menu to rapidly scale identical instances.</span>
+            </div>
+            <div id="templates-grid" class="card-grid"></div>
+          </section>
+
+          <div class="two-col">
+            <section class="fleet-panel">
+              <div class="fleet-toolbar">
+                <strong class="panel-heading">Android System Images</strong>
+                <span class="tag">Google Play x86_64</span>
+              </div>
+              <div class="table-wrap">
+                <table class="table compact">
+                  <thead><tr><th>Release</th><th>API</th><th>Availability</th></tr></thead>
+                  <tbody id="images-table"></tbody>
+                </table>
               </div>
             </section>
 
-            <aside class="inspector">
-              <section class="panel">
-                <div class="panel-head">
-                  <h2>Ringkasan</h2>
-                  <button id="close-inspector" class="icon-button compact inspector-close" type="button" title="Tutup panel"><svg><use href="#i-close"/></svg></button>
-                  <button id="configure-button" class="panel-action" type="button"><svg><use href="#i-edit"/></svg><span>Ubah</span></button>
+            <section class="fleet-panel">
+              <div class="fleet-toolbar">
+                <strong class="panel-heading">Hardware Profiles</strong>
+                <span id="profiles-limits" class="hint">—</span>
+              </div>
+              <div class="table-wrap">
+                <table class="table compact">
+                  <thead><tr><th>Profile</th><th>Form Factor</th><th>Display</th></tr></thead>
+                  <tbody id="profiles-table"></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 4: MACROS & AUTOMATION ==================== -->
+      <section id="macros-view" class="view" hidden>
+        <header class="view-head">
+          <div class="vh-left">
+            <button class="icon-btn ghost" data-action="toggle-sidebar" type="button" title="Toggle sidebar ([)" aria-label="Toggle sidebar"><svg><use href="#i-sidebar"/></svg></button>
+            <h1>Macros &amp; Automation</h1>
+          </div>
+          <div class="vh-right">
+            <button class="icon-btn ghost" data-action="toggle-theme" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <svg class="theme-icon-sun"><use href="#i-sun"/></svg>
+              <svg class="theme-icon-moon"><use href="#i-moon"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="view-body">
+          <div class="two-col macros-split">
+            <section class="fleet-panel">
+              <div class="fleet-toolbar">
+                <strong class="panel-heading">Saved Recipes</strong>
+                <span id="macro-running-hint" class="hint">—</span>
+              </div>
+              <div id="macros-list" class="macros-list"></div>
+            </section>
+
+            <section class="fleet-panel">
+              <div class="fleet-toolbar">
+                <strong class="panel-heading">Create Macro</strong>
+                <button id="macro-add-step" class="btn sm" type="button"><svg><use href="#i-plus"/></svg>Add Step</button>
+              </div>
+              <form id="macro-form" class="card-pad">
+                <div class="form-grid" style="margin-bottom:10px">
+                  <label class="field"><span>Macro name</span><input id="macro-name" type="text" maxlength="60" placeholder="e.g. Open App &amp; Scroll" required></label>
+                  <label class="field"><span>Description</span><input id="macro-desc" type="text" maxlength="160" placeholder="Optional summary"></label>
                 </div>
-                <dl class="property-list">
-                  <div><dt>Sistem</dt><dd id="prop-system">Android 15</dd></div>
-                  <div><dt>Perangkat</dt><dd id="prop-device">Pixel 6</dd></div>
-                  <div><dt>Layar</dt><dd id="prop-screen">—</dd></div>
-                  <div><dt>vCPU</dt><dd id="prop-cpu">4</dd></div>
-                  <div><dt>RAM</dt><dd id="prop-ram">4 GB</dd></div>
-                  <div><dt>Penyimpanan</dt><dd id="prop-storage">16 GB</dd></div>
-                  <div><dt>Root</dt><dd id="prop-root">Tidak</dd></div>
-                  <div class="property-toggle"><dt>Autostart</dt><dd><label class="switch"><input id="autostart-toggle" type="checkbox"><span></span></label></dd></div>
-                </dl>
-                <div class="management-actions">
-                  <button id="restart-button" class="button" type="button"><svg><use href="#i-restart"/></svg><span>Restart</span></button>
-                  <button id="clone-button" class="button" type="button"><svg><use href="#i-clone"/></svg><span>Clone</span></button>
-                  <button id="delete-button" class="button danger-text" type="button"><svg><use href="#i-trash"/></svg><span>Hapus</span></button>
+                <div id="macro-steps-editor" class="steps-editor"></div>
+                <div class="row-between" style="margin-top:12px">
+                  <span class="hint">Normalized coords: 0.0 – 1.0</span>
+                  <button class="btn primary" type="submit">Save Macro</button>
                 </div>
-              </section>
-              <details class="panel disclosure">
-                <summary><span><strong>ADB</strong><small id="adb-state">Offline</small></span><svg><use href="#i-chevron"/></svg></summary>
-                <div class="disclosure-body">
-                  <pre class="command"><code id="adb-command">—</code></pre>
-                  <button class="button subtle wide" id="copy-adb" type="button"><svg><use href="#i-copy"/></svg><span>Salin perintah</span></button>
-                </div>
-              </details>
-              <details class="panel disclosure">
-                <summary><span><strong>Lokasi GPS</strong><small id="location-state">Belum diatur</small></span><svg><use href="#i-chevron"/></svg></summary>
-                <div class="disclosure-body">
-                <div class="location-presets" id="location-presets">
-                  <button type="button" data-location="Jakarta|-6.2088|106.8456">Jakarta</button>
-                  <button type="button" data-location="Bandung|-6.9175|107.6191">Bandung</button>
-                  <button type="button" data-location="Surabaya|-7.2575|112.7521">Surabaya</button>
-                  <button type="button" data-location="Singapura|1.3521|103.8198">Singapura</button>
-                </div>
-                <form id="location-form" class="location-form">
-                  <label class="compact-field"><span>Latitude</span><input id="location-latitude" type="number" min="-90" max="90" step="0.000001" placeholder="-6.2088" required></label>
-                  <label class="compact-field"><span>Longitude</span><input id="location-longitude" type="number" min="-180" max="180" step="0.000001" placeholder="106.8456" required></label>
-                  <button class="button primary wide" type="submit">Terapkan lokasi</button>
-                  <p id="location-message" class="form-message" aria-live="polite"></p>
+              </form>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 5: API & CLUSTER ==================== -->
+      <section id="cluster-view" class="view" hidden>
+        <header class="view-head">
+          <div class="vh-left">
+            <button class="icon-btn ghost" data-action="toggle-sidebar" type="button" title="Toggle sidebar ([)" aria-label="Toggle sidebar"><svg><use href="#i-sidebar"/></svg></button>
+            <h1>API &amp; Cluster</h1>
+          </div>
+          <div class="vh-right">
+            <button class="icon-btn ghost" data-action="toggle-theme" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <svg class="theme-icon-sun"><use href="#i-sun"/></svg>
+              <svg class="theme-icon-moon"><use href="#i-moon"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="view-body">
+          <div class="metrics" id="cluster-metrics">
+            <div class="metric">
+              <div class="metric-top"><span class="metric-label">Compute Pool</span><svg class="metric-ico"><use href="#i-cpu"/></svg></div>
+              <div class="metric-value"><strong id="cl-cpu">—</strong></div>
+              <span id="cl-cpu-sub" class="metric-sub">—</span>
+            </div>
+            <div class="metric">
+              <div class="metric-top"><span class="metric-label">Memory Pool</span><svg class="metric-ico"><use href="#i-memory"/></svg></div>
+              <div class="metric-value"><strong id="cl-ram">—</strong></div>
+              <span id="cl-ram-sub" class="metric-sub">—</span>
+            </div>
+            <div class="metric">
+              <div class="metric-top"><span class="metric-label">Storage Pool</span><svg class="metric-ico"><use href="#i-disk"/></svg></div>
+              <div class="metric-value"><strong id="cl-disk">—</strong></div>
+              <span id="cl-disk-sub" class="metric-sub">—</span>
+            </div>
+            <div class="metric">
+              <div class="metric-top"><span class="metric-label">Capacity Slots</span><svg class="metric-ico"><use href="#i-layers"/></svg></div>
+              <div class="metric-value"><strong id="cl-slots">—</strong></div>
+              <span class="metric-sub">Isolated KVM + VNC ports</span>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <section class="fleet-panel">
+              <div class="fleet-toolbar">
+                <strong class="panel-heading">Bearer API Tokens</strong>
+                <span class="hint">For external SDKs, bots, and CI automation</span>
+              </div>
+              <div class="card-pad">
+                <form id="token-form" class="shell-row" style="margin-bottom:12px">
+                  <input id="token-name" type="text" maxlength="48" placeholder="Token label (e.g. Farm Runner)" required>
+                  <button class="btn primary" type="submit"><svg><use href="#i-plus"/></svg>Generate</button>
                 </form>
+                <div id="token-reveal" class="token-reveal" hidden>
+                  <p class="hint" style="margin-bottom:6px">Copy your new API token now — it will not be shown again:</p>
+                  <div class="shell-row" style="margin-bottom:0">
+                    <input id="token-secret-val" type="text" readonly>
+                    <button id="token-copy-btn" class="btn primary" type="button"><svg><use href="#i-copy"/></svg>Copy</button>
+                  </div>
                 </div>
-              </details>
-              <details class="panel disclosure">
-                <summary><span><strong>Pasang APK</strong><small>Dari komputer</small></span><svg><use href="#i-chevron"/></svg></summary>
-                <div class="disclosure-body">
+                <div id="tokens-list" class="pkg-list" style="margin-top:12px"></div>
+              </div>
+            </section>
+
+            <section class="fleet-panel">
+              <div class="fleet-toolbar">
+                <strong class="panel-heading">REST Automation Quickstart</strong>
+                <span class="tag">HTTP JSON</span>
+              </div>
+              <div class="card-pad">
+                <p class="wp-help">Authenticate external scripts with <code>Authorization: Bearer &lt;token&gt;</code>:</p>
+                <pre class="term tall"><code id="api-examples">—</code></pre>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 6: SINGLE DEVICE PLAYER ==================== -->
+      <section id="detail-view" class="view" hidden>
+        <header class="view-head">
+          <div class="vh-left">
+            <button class="icon-btn ghost" data-action="toggle-sidebar" type="button" title="Toggle sidebar ([)" aria-label="Toggle sidebar"><svg><use href="#i-sidebar"/></svg></button>
+            <span id="detail-dot" class="dot"></span>
+            <h1 id="detail-name">—</h1>
+            <span id="detail-subtitle" class="vh-meta"></span>
+            <span id="detail-group-badge" class="tag">default</span>
+            <span id="detail-backend-badge" class="tag green" hidden>ISO VM</span>
+            <span id="detail-root-badge" class="tag accent" hidden>ROOT</span>
+          </div>
+          <div class="vh-right">
+            <span class="conn"><span id="console-dot" class="dot"></span><span id="console-label">Offline</span></span>
+            <button id="power-button" class="btn primary" type="button"><svg><use href="#i-play"/></svg>Start</button>
+            <button id="header-restart-button" class="btn" type="button"><svg><use href="#i-restart"/></svg>Reboot</button>
+            <button class="icon-btn ghost" data-action="toggle-theme" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <svg class="theme-icon-sun"><use href="#i-sun"/></svg>
+              <svg class="theme-icon-moon"><use href="#i-moon"/></svg>
+            </button>
+            <button id="detail-more" class="icon-btn" type="button" title="Manage device" aria-label="Manage device"><svg><use href="#i-more"/></svg></button>
+          </div>
+        </header>
+
+        <div id="detail-error" class="inline-alert" hidden></div>
+
+        <div class="player">
+          <div class="player-stage" id="console-stage">
+            <div class="device-frame" id="device-frame">
+              <div id="screen" class="device-screen" tabindex="0" aria-label="Android screen"></div>
+              <div id="console-overlay" class="console-overlay">
+                <span class="loader"></span>
+                <strong id="console-overlay-title">Connecting</strong>
+                <span id="console-overlay-message"></span>
+                <button id="overlay-start-btn" class="btn primary" type="button" hidden><svg><use href="#i-play"/></svg>Start Device</button>
+              </div>
+            </div>
+            <div class="nav-keys" id="nav-keys">
+              <button data-key="back" type="button" title="Back"><svg><use href="#i-nav-back"/></svg></button>
+              <button data-key="home" type="button" title="Home"><svg><use href="#i-nav-home"/></svg></button>
+              <button data-key="recents" type="button" title="Recents"><svg><use href="#i-nav-recents"/></svg></button>
+            </div>
+          </div>
+
+          <aside id="widget-panel" class="widget-panel" hidden>
+            <header class="wp-head">
+              <h2 id="widget-title">—</h2>
+              <button id="widget-close" class="icon-btn ghost" type="button" aria-label="Close panel"><svg><use href="#i-close"/></svg></button>
+            </header>
+            <div class="wp-body">
+              <section data-panel="info">
+                <dl class="kv">
+                  <div><dt>Status</dt><dd id="dock-status">—</dd></div>
+                  <div><dt>Group</dt><dd id="prop-group">—</dd></div>
+                  <div><dt>Android</dt><dd id="prop-system">—</dd></div>
+                  <div><dt>Profile</dt><dd id="prop-device">—</dd></div>
+                  <div><dt>Display</dt><dd id="prop-screen" class="mono">—</dd></div>
+                  <div><dt>Compute</dt><dd id="dock-specs">—</dd></div>
+                  <div><dt>Storage</dt><dd id="prop-storage">—</dd></div>
+                  <div><dt>Root</dt><dd id="prop-root">—</dd></div>
+                </dl>
+                <h3 class="wp-sub"><span>Runtime</span><button id="refresh-telemetry-btn" class="link" type="button">Probe</button></h3>
+                <dl class="kv">
+                  <div><dt>IP Address</dt><dd id="dock-ip" class="mono">—</dd></div>
+                  <div><dt>Battery</dt><dd id="dock-battery">—</dd></div>
+                  <div><dt>Uptime</dt><dd id="tel-uptime">—</dd></div>
+                  <div><dt>ADB</dt><dd id="dock-adb">—</dd></div>
+                  <div><dt>Serial</dt><dd id="sum-serial" class="mono">—</dd></div>
+                  <div><dt>VNC Port</dt><dd id="sum-vnc-port" class="mono">—</dd></div>
+                </dl>
+                <label class="toggle-row">
+                  <span>Autostart on host boot</span>
+                  <span class="switch"><input id="autostart-toggle" type="checkbox"><i></i></span>
+                </label>
+              </section>
+
+              <section data-panel="text">
+                <p class="wp-help">Inject text directly into the currently focused Android input field.</p>
+                <form id="text-input-form">
+                  <textarea id="device-text-input" rows="3" maxlength="1000" placeholder="Enter text, URL, or password..."></textarea>
+                  <div class="row-between">
+                    <label class="check"><input id="device-text-submit" type="checkbox" checked><span>Send Enter</span></label>
+                    <button id="device-text-btn" class="btn primary" type="submit"><svg><use href="#i-send"/></svg>Send</button>
+                  </div>
+                </form>
+              </section>
+
+              <section data-panel="gps">
+                <p class="wp-help">Active location: <strong id="location-state">not set</strong></p>
+                <div class="chip-grid" id="location-presets">
+                  <button class="chip" type="button" data-location="Jakarta|-6.2088|106.8456">Jakarta</button>
+                  <button class="chip" type="button" data-location="Bandung|-6.9175|107.6191">Bandung</button>
+                  <button class="chip" type="button" data-location="Surabaya|-7.2575|112.7521">Surabaya</button>
+                  <button class="chip" type="button" data-location="Singapore|1.3521|103.8198">Singapore</button>
+                  <button class="chip" type="button" data-location="Tokyo|35.6762|139.6503">Tokyo</button>
+                  <button class="chip" type="button" data-location="San Francisco|37.7749|-122.4194">San Francisco</button>
+                </div>
+                <form id="location-form" class="form-grid">
+                  <label class="field"><span>Latitude</span><input id="location-latitude" type="number" min="-90" max="90" step="0.000001" placeholder="-6.2088" required></label>
+                  <label class="field"><span>Longitude</span><input id="location-longitude" type="number" min="-180" max="180" step="0.000001" placeholder="106.8456" required></label>
+                  <button class="btn primary span-2" type="submit"><svg><use href="#i-map"/></svg>Apply Location</button>
+                </form>
+                <p id="location-message" class="form-message" aria-live="polite"></p>
+              </section>
+
+              <section data-panel="battery">
+                <form id="battery-form">
+                  <div class="row-between"><span class="field-label">Charge level</span><strong class="mono"><span id="battery-slider-val">100</span>%</strong></div>
+                  <input id="battery-level" type="range" min="0" max="100" step="1" value="100">
+                  <label class="toggle-row">
+                    <span>AC charger connected</span>
+                    <span class="switch"><input id="battery-ac" type="checkbox" checked><i></i></span>
+                  </label>
+                  <button id="battery-apply" class="btn primary block" type="submit"><svg><use href="#i-battery"/></svg>Apply Power</button>
+                </form>
+                <p id="battery-message" class="form-message" aria-live="polite"></p>
+              </section>
+
+              <section data-panel="apps">
                 <form id="upload-form">
-                  <label class="upload-zone" for="apk-file">
+                  <label id="upload-zone" class="dropzone" for="apk-file">
                     <svg><use href="#i-upload"/></svg>
-                    <span><strong id="file-label">Pilih file APK</strong><small>Maksimal 250 MB</small></span>
+                    <span><strong id="file-label">Drop or browse .apk</strong><small id="file-sublabel">Max 250 MB</small></span>
                     <input id="apk-file" type="file" accept=".apk,application/vnd.android.package-archive">
                   </label>
-                  <button id="install-button" class="button primary wide" type="submit" disabled>Pasang aplikasi</button>
+                  <div id="upload-progress-wrap" hidden><div class="meter"><i id="upload-progress-bar"></i></div></div>
+                  <button id="install-button" class="btn primary block" type="submit" disabled>Install APK</button>
                   <p id="upload-message" class="form-message" aria-live="polite"></p>
                 </form>
+                <h3 class="wp-sub"><span>Installed Apps <em id="pkg-count">0</em></span><button id="pkg-refresh" class="link" type="button">Refresh</button></h3>
+                <div class="search-input"><svg><use href="#i-search"/></svg><input id="pkg-search" type="search" placeholder="Filter packages..." autocomplete="off"></div>
+                <div id="pkg-list" class="pkg-list"></div>
+              </section>
+
+              <section data-panel="shell">
+                <div class="chip-grid">
+                  <button class="chip" data-shell-preset="id; su -c id 2>&1 || true" type="button">Check root</button>
+                  <button class="chip" data-shell-preset="ip -o -4 addr show" type="button">IP Addr</button>
+                  <button class="chip" data-shell-preset="getprop ro.build.fingerprint" type="button">Build Info</button>
+                  <button class="chip" data-shell-preset="df -h /data" type="button">Storage</button>
                 </div>
-              </details>
-            </aside>
-          </div>
-        </section>
-      </main>
+                <form id="shell-form" class="shell-row">
+                  <span>$</span>
+                  <input id="shell-command" type="text" maxlength="500" placeholder="adb shell command..." autocomplete="off" spellcheck="false">
+                  <button id="shell-run" class="btn primary" type="submit">Run</button>
+                </form>
+                <pre id="shell-output" class="term"></pre>
+                <button id="shell-clear" class="link" type="button">Clear output</button>
+              </section>
+
+              <section data-panel="logs">
+                <div class="segmented full">
+                  <button class="active" data-log-kind="emulator" type="button">Emulator</button>
+                  <button data-log-kind="mirror" type="button">Mirror</button>
+                  <button data-log-kind="vnc" type="button">VNC</button>
+                  <button data-log-kind="display" type="button">Display</button>
+                </div>
+                <pre id="log-viewer" class="term tall"></pre>
+                <div class="row-between">
+                  <button id="log-refresh" class="btn" type="button"><svg><use href="#i-refresh"/></svg>Reload</button>
+                  <button id="log-copy" class="btn" type="button"><svg><use href="#i-copy"/></svg>Copy</button>
+                </div>
+              </section>
+
+              <section data-panel="adb">
+                <p class="wp-help">ADB binds strictly to server loopback. Open an SSH tunnel locally: <span id="adb-state" class="tag">—</span></p>
+                <pre class="term"><code id="adb-command">—</code></pre>
+                <button id="copy-adb" class="btn primary block" type="button"><svg><use href="#i-copy"/></svg><span>Copy command</span></button>
+              </section>
+
+              <section data-panel="identity">
+                <div class="id-audit-card">
+                  <div class="row-between" style="margin-top:0">
+                    <div>
+                      <span id="id-audit-badge" class="status-badge">Unchecked</span>
+                      <strong id="id-audit-score" class="mono" style="margin-left:6px;font-size:12px">—</strong>
+                    </div>
+                    <button id="id-audit-refresh" class="link" type="button">Verify Live</button>
+                  </div>
+                  <div id="id-audit-warnings" class="id-warnings"></div>
+                </div>
+                <dl class="kv" style="margin-top:10px">
+                  <div><dt>Model</dt><dd id="id-live-model" class="mono">—</dd></div>
+                  <div><dt>Brand / Mfr</dt><dd id="id-live-brand">—</dd></div>
+                  <div><dt>Device</dt><dd id="id-live-device" class="mono">—</dd></div>
+                  <div><dt>Device Name</dt><dd id="id-live-devname">—</dd></div>
+                  <div><dt>Hardware</dt><dd id="id-live-hw" class="mono">—</dd></div>
+                  <div><dt>Board / SoC</dt><dd id="id-live-soc" class="mono">—</dd></div>
+                  <div><dt>Serial</dt><dd id="id-live-serial" class="mono">—</dd></div>
+                  <div><dt>Carrier</dt><dd id="id-live-carrier">—</dd></div>
+                  <div><dt>QEMU Flag</dt><dd id="id-live-qemu" class="mono">—</dd></div>
+                </dl>
+                <p id="id-live-fp" class="hint mono" style="margin:8px 0 0;word-break:break-all;font-size:10.5px">—</p>
+                <h3 class="wp-sub"><span>Apply Real Device Profile</span></h3>
+                <form id="identity-form">
+                  <label class="field" style="margin-bottom:8px">
+                    <span>Community Fingerprint</span>
+                    <select id="id-profile-select"></select>
+                  </label>
+                  <label class="field" style="margin-bottom:8px">
+                    <span>SIM / Carrier</span>
+                    <select id="id-carrier-select"></select>
+                  </label>
+                  <label class="check" style="margin-bottom:10px">
+                    <input id="id-randomize" type="checkbox">
+                    <span>Generate fresh Serial, IMEI &amp; Android ID</span>
+                  </label>
+                  <div class="chip-grid" style="margin-bottom:0">
+                    <button id="id-apply-btn" class="btn" type="submit">Apply Live</button>
+                    <button id="id-apply-reboot-btn" class="btn primary" type="button">Apply &amp; Reboot</button>
+                  </div>
+                  <p id="id-form-message" class="form-message" aria-live="polite"></p>
+                </form>
+              </section>
+            </div>
+          </aside>
+
+          <nav class="widget-rail" aria-label="Device controls">
+            <div class="rail-group">
+              <button class="rail-btn" data-key="power" type="button" title="Power"><svg><use href="#i-power"/></svg></button>
+              <button class="rail-btn" data-key="volume-up" type="button" title="Volume Up"><svg><use href="#i-vol-up"/></svg></button>
+              <button class="rail-btn" data-key="volume-down" type="button" title="Volume Down"><svg><use href="#i-vol-down"/></svg></button>
+              <button class="rail-btn" data-key="rotate" type="button" title="Rotate Screen"><svg><use href="#i-rotate"/></svg></button>
+              <button class="rail-btn" data-key="notification" type="button" title="Notifications"><svg><use href="#i-bell"/></svg></button>
+              <button id="screenshot-button" class="rail-btn" type="button" title="Screenshot"><svg><use href="#i-camera"/></svg></button>
+            </div>
+            <div class="rail-group">
+              <button class="rail-btn" data-widget="info" type="button" title="Device Info"><svg><use href="#i-info"/></svg></button>
+              <button class="rail-btn" data-widget="identity" type="button" title="Real Device Identity"><svg><use href="#i-fingerprint"/></svg></button>
+              <button class="rail-btn" data-widget="text" type="button" title="Send Text"><svg><use href="#i-keyboard"/></svg></button>
+              <button class="rail-btn" data-widget="gps" type="button" title="GPS Location"><svg><use href="#i-map"/></svg></button>
+              <button class="rail-btn" data-widget="battery" type="button" title="Battery"><svg><use href="#i-battery"/></svg></button>
+              <button class="rail-btn" data-widget="apps" type="button" title="Apps &amp; APK"><svg><use href="#i-apps"/></svg></button>
+              <button class="rail-btn" data-widget="shell" type="button" title="ADB Shell"><svg><use href="#i-terminal"/></svg></button>
+              <button class="rail-btn" data-widget="logs" type="button" title="Logs"><svg><use href="#i-logs"/></svg></button>
+              <button class="rail-btn" data-widget="adb" type="button" title="ADB Tunnel"><svg><use href="#i-plug"/></svg></button>
+            </div>
+            <div class="rail-group">
+              <button id="reconnect-button" class="rail-btn" type="button" title="Reconnect Stream"><svg><use href="#i-refresh"/></svg></button>
+              <button id="fullscreen-button" class="rail-btn" type="button" title="Fullscreen"><svg><use href="#i-expand"/></svg></button>
+            </div>
+          </nav>
+        </div>
+      </section>
     </div>
   </div>
 
-  <dialog id="machine-dialog" class="modal">
-    <form id="machine-form" method="dialog">
-      <div class="modal-head">
-        <div><p class="eyebrow">NEW MACHINE</p><h2>Buat mesin Android</h2></div>
-        <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
-      </div>
+  <div id="ctx-menu" class="menu" role="menu" hidden></div>
+
+  <!-- MODAL: CREATE / BATCH CREATE (ZERO OVERFLOW SCROLL) -->
+  <dialog id="machine-dialog" class="modal wide">
+    <form id="machine-form" method="dialog" class="modal-shell">
+      <header class="modal-head">
+        <h2>New Virtual Device</h2>
+        <button class="icon-btn ghost" type="button" data-close-modal aria-label="Close"><svg><use href="#i-close"/></svg></button>
+      </header>
       <div class="modal-body">
-        <div class="modal-section">
-          <p class="section-label">Identitas</p>
-        <label class="field"><span>Nama mesin</span><input id="machine-name" name="name" type="text" maxlength="48" placeholder="QA Pixel" required></label>
+        <div class="form-grid cols-create-top">
+          <label class="field"><span>Name / prefix</span><input id="machine-name" type="text" maxlength="48" placeholder="farm-pixel" required></label>
+          <label class="field"><span>Group</span><input id="machine-group" type="text" maxlength="32" value="default" placeholder="default"></label>
+          <label class="field"><span>Count (1–20)</span><input id="machine-count" type="number" min="1" max="20" step="1" value="1" required></label>
         </div>
-        <div class="modal-section">
-          <p class="section-label">Hardware</p>
         <div class="form-grid">
-          <label class="field"><span>Perangkat</span><select id="machine-device" name="device"></select></label>
-          <label class="field"><span>Sistem</span><select id="machine-system" name="system"></select></label>
-          <label class="field"><span>vCPU</span><input id="machine-cpu" name="cpu" type="number" min="1" step="1" inputmode="numeric" required></label>
-          <label class="field"><span>RAM (GB)</span><input id="machine-ram" name="ram" type="number" min="1" step="0.5" inputmode="decimal" required></label>
-          <label class="field"><span>Penyimpanan</span><select id="machine-storage" name="storage"></select></label>
+          <label class="field">
+            <span>VM Engine</span>
+            <select id="machine-backend">
+              <option value="avd">Android Emulator (AVD · Google Play)</option>
+              <option value="iso">Community Android ISO (QEMU/KVM · Real Kernel)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Real Device Identity (Community Fingerprint)</span>
+            <select id="machine-identity"></select>
+          </label>
         </div>
+        <div class="form-grid hw">
+          <label class="field"><span>Device profile</span><select id="machine-device"></select></label>
+          <label class="field" id="machine-system-wrap"><span>Android image</span><select id="machine-system"></select></label>
+          <label class="field" id="machine-iso-wrap" hidden><span>Community ISO</span><select id="machine-iso"></select></label>
+          <label class="field"><span>vCPU</span><input id="machine-cpu" type="number" min="1" step="1" inputmode="numeric" required></label>
+          <label class="field"><span>RAM (GB)</span><input id="machine-ram" type="number" min="1" step="0.5" inputmode="decimal" required></label>
+          <label class="field"><span>Storage</span><select id="machine-storage"></select></label>
         </div>
-        <label class="check-row root-row">
-          <input id="machine-root" type="checkbox">
-          <span><strong>Root debugging</strong><small>Gunakan image Google APIs Android 16 yang mendukung ADB root. Play Store tidak tersedia pada mesin ini.</small></span>
-        </label>
-        <label class="check-row"><input id="machine-start" type="checkbox" checked><span><strong>Mulai setelah dibuat</strong><small>Boot pertama dapat memerlukan waktu.</small></span></label>
-        <label class="check-row"><input id="machine-autostart" type="checkbox"><span><strong>Autostart</strong><small>Jalankan saat controller dimulai.</small></span></label>
+        <p id="create-limits-hint" class="hint"></p>
+        <div class="options">
+          <label class="option"><input id="machine-root" type="checkbox"><span><strong>Root + Play Store</strong><small>Android 15/16 with Magisk</small></span></label>
+          <label class="option"><input id="machine-start" type="checkbox" checked><span><strong>Start after creation</strong><small>Staggered boot if count &gt; 1</small></span></label>
+          <label class="option"><input id="machine-autostart" type="checkbox"><span><strong>Autostart</strong><small>Boot automatically with host</small></span></label>
+        </div>
         <p id="machine-form-message" class="form-message" aria-live="polite"></p>
       </div>
-      <div class="modal-foot">
-        <button class="button" type="button" data-close-modal>Batal</button>
-        <button id="create-submit" class="button primary" type="submit">Buat mesin</button>
-      </div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close-modal>Cancel</button>
+        <button id="create-submit" class="btn primary" type="submit">Create Device</button>
+      </footer>
     </form>
   </dialog>
 
-  <dialog id="clone-dialog" class="modal small">
-    <form id="clone-form" method="dialog">
-      <div class="modal-head">
-        <div><p class="eyebrow">CLONE</p><h2>Clone mesin</h2></div>
-        <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
-      </div>
+  <!-- MODAL: BATCH CLONE -->
+  <dialog id="batch-clone-dialog" class="modal">
+    <form id="batch-clone-form" method="dialog" class="modal-shell">
+      <header class="modal-head">
+        <h2>Batch Clone from Template</h2>
+        <button class="icon-btn ghost" type="button" data-close-modal aria-label="Close"><svg><use href="#i-close"/></svg></button>
+      </header>
       <div class="modal-body">
-        <p class="modal-note">Data dan aplikasi dari mesin sumber akan disalin. Mesin sumber harus berstatus stopped.</p>
-        <label class="field"><span>Nama clone</span><input id="clone-name" type="text" maxlength="48" required></label>
-        <label class="check-row"><input id="clone-start" type="checkbox"><span><strong>Mulai setelah clone selesai</strong></span></label>
-        <p id="clone-message" class="form-message"></p>
+        <p class="hint">Duplicate a stopped device or template into multiple ready-to-run farm instances.</p>
+        <label class="field"><span>Source device / template</span><select id="bclone-source" required></select></label>
+        <div class="form-grid">
+          <label class="field"><span>Name prefix</span><input id="bclone-prefix" type="text" maxlength="40" placeholder="worker" required></label>
+          <label class="field"><span>Count (1–20)</span><input id="bclone-count" type="number" min="1" max="20" value="3" required></label>
+          <label class="field span-2"><span>Target group</span><input id="bclone-group" type="text" maxlength="32" value="default"></label>
+        </div>
+        <label class="check"><input id="bclone-start" type="checkbox"><span>Staggered start after cloning</span></label>
+        <p id="bclone-message" class="form-message" aria-live="polite"></p>
       </div>
-      <div class="modal-foot">
-        <button class="button" type="button" data-close-modal>Batal</button>
-        <button class="button primary" type="submit">Buat clone</button>
-      </div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close-modal>Cancel</button>
+        <button id="bclone-submit" class="btn primary" type="submit">Deploy Clones</button>
+      </footer>
     </form>
   </dialog>
 
-  <dialog id="configure-dialog" class="modal small">
-    <form id="configure-form" method="dialog">
-      <div class="modal-head">
-        <div><p class="eyebrow">HARDWARE</p><h2>Ubah profil mesin</h2></div>
-        <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
-      </div>
+  <!-- MODAL: EDIT METADATA / GROUP -->
+  <dialog id="meta-dialog" class="modal">
+    <form id="meta-form" method="dialog" class="modal-shell">
+      <header class="modal-head">
+        <h2>Edit Device Details</h2>
+        <button class="icon-btn ghost" type="button" data-close-modal aria-label="Close"><svg><use href="#i-close"/></svg></button>
+      </header>
       <div class="modal-body">
-        <p class="modal-note">Matikan mesin sebelum mengubah hardware. Data Android tidak dihapus.</p>
-        <div class="form-grid single">
-          <label class="field"><span>Profil perangkat</span><select id="configure-device"></select></label>
+        <label class="field"><span>Name</span><input id="meta-name" type="text" maxlength="48" required></label>
+        <label class="field"><span>Group</span><input id="meta-group" type="text" maxlength="32" placeholder="default"></label>
+        <label class="field"><span>Tags (comma separated)</span><input id="meta-tags" type="text" maxlength="120" placeholder="prod, jakarta, magisk"></label>
+        <label class="check"><input id="meta-template" type="checkbox"><span>Mark as Golden Template (device must be stopped)</span></label>
+        <p id="meta-message" class="form-message" aria-live="polite"></p>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close-modal>Cancel</button>
+        <button class="btn primary" type="submit">Save</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- MODAL: CLONE -->
+  <dialog id="clone-dialog" class="modal">
+    <form id="clone-form" method="dialog" class="modal-shell">
+      <header class="modal-head">
+        <h2>Clone Device</h2>
+        <button class="icon-btn ghost" type="button" data-close-modal aria-label="Close"><svg><use href="#i-close"/></svg></button>
+      </header>
+      <div class="modal-body">
+        <p class="hint">Disk data and installed apps will be duplicated. The source device must be stopped.</p>
+        <label class="field"><span>Clone name</span><input id="clone-name" type="text" maxlength="48" required></label>
+        <label class="check"><input id="clone-start" type="checkbox"><span>Start after cloning</span></label>
+        <p id="clone-message" class="form-message" aria-live="polite"></p>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close-modal>Cancel</button>
+        <button class="btn primary" type="submit">Clone</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- MODAL: HARDWARE -->
+  <dialog id="configure-dialog" class="modal">
+    <form id="configure-form" method="dialog" class="modal-shell">
+      <header class="modal-head">
+        <h2>Edit Hardware</h2>
+        <button class="icon-btn ghost" type="button" data-close-modal aria-label="Close"><svg><use href="#i-close"/></svg></button>
+      </header>
+      <div class="modal-body">
+        <p class="hint">The device must be stopped first. Existing Android data is preserved.</p>
+        <label class="field"><span>Device profile</span><select id="configure-device"></select></label>
+        <div class="form-grid">
           <label class="field"><span>vCPU</span><input id="configure-cpu" type="number" min="1" step="1" inputmode="numeric" required></label>
           <label class="field"><span>RAM (GB)</span><input id="configure-ram" type="number" min="1" step="0.5" inputmode="decimal" required></label>
         </div>
         <p id="configure-message" class="form-message" aria-live="polite"></p>
       </div>
-      <div class="modal-foot split">
-        <button id="wipe-button" class="button danger-text" type="button"><svg><use href="#i-eraser"/></svg><span>Reset data</span></button>
-        <span class="modal-spacer"></span>
-        <button class="button" type="button" data-close-modal>Batal</button>
-        <button class="button primary" type="submit">Simpan</button>
-      </div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close-modal>Cancel</button>
+        <button class="btn primary" type="submit">Save Changes</button>
+      </footer>
     </form>
   </dialog>
 
-  <dialog id="confirm-dialog" class="modal small">
-    <div class="modal-head">
-      <div><p class="eyebrow">KONFIRMASI</p><h2 id="confirm-title">Hapus mesin?</h2></div>
-      <button class="icon-button" type="button" data-close-modal aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
-    </div>
-    <div class="modal-body"><p id="confirm-copy" class="modal-note"></p></div>
-    <div class="modal-foot">
-      <button class="button" type="button" data-close-modal>Batal</button>
-      <button id="confirm-action" class="button danger-solid" type="button">Hapus</button>
+  <!-- MODAL: IMPORT COMMUNITY FINGERPRINT -->
+  <dialog id="fp-import-dialog" class="modal">
+    <form id="fp-import-form" method="dialog" class="modal-shell">
+      <header class="modal-head">
+        <h2>Import Community Fingerprint</h2>
+        <button class="icon-btn ghost" type="button" data-close-modal aria-label="Close"><svg><use href="#i-close"/></svg></button>
+      </header>
+      <div class="modal-body">
+        <p class="hint">Paste a PlayIntegrityFix <code>pif.json</code>, a MagiskHidePropsConf line, or a raw Android build fingerprint.</p>
+        <label class="field">
+          <span>PIF JSON or Fingerprint string</span>
+          <textarea id="fp-import-raw" rows="6" placeholder='{"MANUFACTURER":"Google","MODEL":"Pixel 8 Pro","FINGERPRINT":"google/husky/husky:15/...:user/release-keys","SECURITY_PATCH":"2025-05-05"}' required></textarea>
+        </label>
+        <div class="form-grid">
+          <label class="field"><span>Label (optional)</span><input id="fp-import-label" type="text" maxlength="64" placeholder="Auto-detected"></label>
+          <label class="field"><span>Model (optional)</span><input id="fp-import-model" type="text" maxlength="48" placeholder="Auto-detected"></label>
+        </div>
+        <p id="fp-import-message" class="form-message" aria-live="polite"></p>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close-modal>Cancel</button>
+        <button id="fp-import-submit" class="btn primary" type="submit">Save Fingerprint</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- MODAL: CONFIRM -->
+  <dialog id="confirm-dialog" class="modal">
+    <div class="modal-shell">
+      <header class="modal-head">
+        <h2 id="confirm-title">Confirm</h2>
+        <button class="icon-btn ghost" type="button" data-close-modal aria-label="Close"><svg><use href="#i-close"/></svg></button>
+      </header>
+      <div class="modal-body"><p id="confirm-copy" class="hint"></p></div>
+      <footer class="modal-foot">
+        <button class="btn" type="button" data-close-modal>Cancel</button>
+        <button id="confirm-action" class="btn danger" type="button">Continue</button>
+      </footer>
     </div>
   </dialog>
 

@@ -1,6 +1,9 @@
 # Development and Agent Guide
 
 This guide is the repository handoff for human developers and coding agents.
+For BlissOS Community ISO invariants, pure-bionic native artifact build commands
+(`droidcloud_ril.c`, `droidcloud_bt.c`, `unppu.c`), and zero-downtime controller
+rules, also read [AGENTS.md](../AGENTS.md).
 
 ## Ground Rules
 
@@ -8,9 +11,11 @@ This guide is the repository handoff for human developers and coding agents.
 - Never add private keys, passwords, session tokens, VM metadata, AVD disks,
   uploaded APKs, or logs to Git.
 - Keep ADB, VNC, websockify, and controller listeners on loopback.
-- Use official Android SDK system images.
-- Do not add identity spoofing, anti-fraud evasion, fake IMEI, root hiding, or
-  Play Integrity bypasses.
+- Never restart the live controller service without explicit operator approval
+  while user VMs are running (`KillMode=mixed` terminates VMs in its cgroup).
+- Be honest about hardware limits: x86_64 KVM VMs have no hardware TEE/KeyMint
+  and cannot guarantee Google Play Integrity `MEETS_DEVICE_INTEGRITY` or
+  `MEETS_STRONG_INTEGRITY` verdicts.
 - Test the normal entry point, including an existing installation where the
   change can affect runtime settings.
 - Keep the controller standard-library-only unless a concrete dependency is
@@ -19,15 +24,23 @@ This guide is the repository handoff for human developers and coding agents.
 ## Layout
 
 ```text
+AGENTS.md            Primary coding-agent handoff & ISO/native build guide
 controller/
-  manager.py       VM and process lifecycle
-  server.py        authenticated HTTP API
-  settings.py      environment-driven paths and listeners
-web/               static frontend and noVNC
-deploy/            Caddy and systemd templates
-scripts/           install, verify, password, and static checks
-tests/             standard-library unit tests
-docs/              operator and contributor guides
+  manager.py         VM and process lifecycle (AVD + Community ISO QEMU/KVM)
+  server.py          Authenticated HTTP API
+  settings.py        Environment-driven paths, artifacts, and listeners
+  fingerprints.py    Device profiles, ISO initrd hook, KSU scripts, audit scoring
+  droidcloud_ril.c   Pure-bionic AOSP RIL v12 shared library
+  droidcloud_bt.c    Pure-bionic virtual Bluetooth 5.2 VHCI daemon
+  unppu.c            Pure-bionic Zygisk module (PixelPropsUtils & Settings bridge)
+  vpn.py             OpenVPN profile management
+  netd.py            Per-VM cgroup policy routing daemon
+  platform_settings.py Persistent stream & host settings
+web/                 Static frontend, farm controls, Leaflet map, and noVNC
+deploy/              Caddy and systemd templates
+scripts/             install, verify, password, and static checks
+tests/               Standard-library unit tests
+docs/                Operator and contributor guides
 ```
 
 This document is the canonical engineering guide.

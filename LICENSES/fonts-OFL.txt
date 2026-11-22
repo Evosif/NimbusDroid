@@ -1,0 +1,2 @@
+Inter (rsms/inter) and JetBrains Mono are licensed under the SIL Open Font License 1.1.
+Files: web/fonts/inter.woff2, web/fonts/jetbrains-mono.woff2 (latin subset via @fontsource-variable).

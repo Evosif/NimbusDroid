@@ -173,9 +173,24 @@ only ingress path and review request logs before changing limits.
 
 ## Root VM Has No Play Store
 
-Root creation intentionally selects a Google APIs image. Google Play images use
-a production build where `adb root` is rejected. Keep root test VMs separate
-from normal Play Store VMs.
+Root VMs use the official Android 16 Play Store image and a Magisk-patched
+ramdisk. Confirm the registered image and ramdisk are present:
+
+```bash
+sudo systemctl show android-controller.service -p Environment
+ls -lh "${DROID_CLOUD_STATE_DIR:-$HOME/.config/android-cloud}/image-artifacts/"
+```
+
+If Magisk reports that root access has not been approved, open Magisk, select
+**Superuser**, and enable the `com.android.shell` switch once.
+
+## Community ISO (BlissOS) Diagnostics
+
+- **Boot hangs at bootanimation:** Inspect guest tombstones (`debugfs -R "ls -l /tombstones" data.img`) and `$DROID_CLOUD_CACHE_DIR/logs/<id>-emulator.log`. Never bind-mount an initramfs directory onto `/android/system/vendor/etc/vintf/manifest`; overwrite `/tmp/fakeboot.xml` in `scripts/99-droidcloud` instead (see [AGENTS.md](../AGENTS.md)).
+- **Blank display after adding a KernelSU module:** Remove any KernelSU module containing a `system/` overlay directory; bind-mount only `/system/etc/permissions` from `05_droidcloud_platform.sh`.
+- **High guest CPU / `/proc/cpuinfo` mount explosion:** Verify `grep -c ' /proc/cpuinfo ' /proc/mounts` is `1` and `busybox mount --make-rprivate /proc` ran in `05_droidcloud_platform.sh`.
+- **IMEI / SIM / Bluetooth / Wi-Fi MAC missing:** Check `lshal | grep radio`, `service call iphonesubinfo 1 s16 com.android.shell`, `hciconfig -a`, `dumpsys bluetooth_manager`, and `grep wifi_sta_factory_mac_address /data/misc/apexdata/com.android.wifi/WifiConfigStore.xml`.
+- **Apps show `raven` or `Chromebook` instead of selected profile:** Confirm `custom.pif.prop` matches the VM profile (`spoofVendingFinger=0`) and `logcat -d | grep DroidCloudUnPPU` confirms BlissOS `PixelPropsUtils` is disabled.
 
 ## App Rejects Emulator
 

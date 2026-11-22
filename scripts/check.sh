@@ -8,6 +8,12 @@ python3 -m compileall -q controller tests
 python3 -m unittest discover -s tests -v
 if command -v node >/dev/null 2>&1; then
   node --check web/app.js
+  if [ -f web/farm.js ]; then
+    node --check web/farm.js
+  fi
+  if [ -f web/location-map.js ]; then
+    node --check web/location-map.js
+  fi
 else
   printf '[skip] Node.js tidak tersedia untuk syntax check frontend.\n'
 fi
